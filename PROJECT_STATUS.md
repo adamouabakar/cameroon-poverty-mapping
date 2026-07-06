@@ -55,6 +55,7 @@ Feature set : v3 (GHSL + CHIRPS)
 ### Court terme (manuel)
 
 - [x] URL GitHub : `https://github.com/OneLogTech/cameroon-poverty-mapping`
+- [x] Dépôt GitHub créé (vide) — `git push -u origin main` à lancer localement avec authentification
 - [x] Workflow CI GitHub Actions (`.github/workflows/ci.yml`)
 - [x] Dépôt Git initialisé (premier commit local)
 - [ ] Export GEE national → inférence raster directe (`run_national_inference.py --mode raster`)
