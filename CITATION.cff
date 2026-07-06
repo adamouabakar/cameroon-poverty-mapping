@@ -1,0 +1,53 @@
+cff-version: 1.2.0
+title: "Cameroon Poverty Mapping — Open pipeline for fine-resolution wealth estimation"
+message: "If you use this software, please cite it as below."
+type: software
+authors:
+  - name: "Cameroon Poverty Mapping contributors"
+repository-code: "https://github.com/OneLogTech/cameroon-poverty-mapping"
+url: "https://github.com/OneLogTech/cameroon-poverty-mapping"
+license: MIT
+version: 0.1.0
+date-released: 2026-07-06
+keywords:
+  - poverty mapping
+  - DHS
+  - Cameroon
+  - Google Earth Engine
+  - LightGBM
+  - remote sensing
+  - open data
+abstract: >
+  Open-source, reproducible pipeline to estimate DHS wealth index at ~1 km
+  resolution in Cameroon using DHS 2018 clusters, Google Earth Engine features
+  (Sentinel-2, VIIRS, GHSL, CHIRPS, OSM, WorldPop), and spatial cross-validated
+  LightGBM regression.
+references:
+  - type: article
+    title: "Combining satellite imagery and machine learning to predict poverty"
+    authors:
+      - family-names: Jean
+        given-names: Neal
+    journal: Science
+    year: 2016
+    volume: 353
+    issue: 6301
+    start-page: 790
+    end-page: 794
+    doi: 10.1126/science.aaf7894
+  - type: article
+    title: "Using publicly available satellite imagery and deep learning to understand economic well-being in Africa"
+    authors:
+      - family-names: Yeh
+        given-names: Christopher
+    journal: Nature Communications
+    year: 2020
+    volume: 11
+    article-number: 2583
+    doi: 10.1038/s41467-020-16185-w
+  - type: report
+    title: "Cameroon Demographic and Health Survey 2018"
+    authors:
+      - name: "ICF"
+    year: 2019
+    notes: "DHS Program — microdata require registration at dhsprogram.com"

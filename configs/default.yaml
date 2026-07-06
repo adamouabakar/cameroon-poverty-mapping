@@ -1,0 +1,68 @@
+project:
+  name: "cameroon-poverty-mapping"
+  version: "0.1.0"   # Release juillet 2026 — DHS réel + GEE v3 validé
+  resolution: 1000
+  country: "CM"
+  dhs_year: 2018
+
+data:
+  dhs_dir: "data/raw/dhs/"
+  dhs_source: "real"    # "real" | "fake"
+  features_dir: "data/processed/features/"
+  training_dir: "data/processed/training/"
+  prepared_clusters: "data/processed/dhs_clusters_real.parquet"
+
+gee:
+  use_gee: true
+  config_file: "configs/gee.yaml"
+  export_scale: 1000
+  temporal_filter: "2017-01-01/2019-12-31"
+
+model:
+  type: "lightgbm"
+  random_state: 42
+  n_folds: 5
+  cv_strategy: "auto"
+  early_stopping_rounds: 30
+  internal_val_fraction: 0.15
+  params:
+    objective: "regression"
+    metric: "rmse"
+    num_leaves: 15
+    min_child_samples: 5
+    learning_rate: 0.05
+    n_estimators: 1000
+    reg_alpha: 0.1
+    reg_lambda: 0.1
+    verbosity: -1
+
+features:
+  fake: false
+  source: "gee"       # "fake" | "gee"
+  feature_set: "v3"   # "v1" (WorldCover) | "v2" (GHSL) | "v3" (GHSL+CHIRPS)
+  gee_parquet: "data/processed/features/cluster_features_gee_real.parquet"
+  columns:
+    - night_lights_mean
+    - ndvi_mean
+    - ndbi_mean
+    - dist_road_km
+    - dist_school_km
+    - dist_health_km
+    - pop_density
+    - elevation_m
+    - slope_deg
+    - ghsl_built_fraction
+    - precip_annual_mm
+    - precip_wet_season_mm
+    - precip_cv
+
+prioritization:
+  criteria_file: "configs/prioritization_criteria.yaml"
+  normalize_method: "minmax"
+
+output:
+  rasters_dir: "outputs/rasters/"
+  maps_dir: "outputs/maps/"
+  reports_dir: "outputs/reports/"
+  models_dir: "models/"
+  logs_dir: "logs/"

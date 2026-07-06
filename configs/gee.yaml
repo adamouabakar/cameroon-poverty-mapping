@@ -1,0 +1,176 @@
+# =============================================================================
+# Configuration Google Earth Engine — Cameroon Poverty Mapping
+# =============================================================================
+# feature_set: v1=WorldCover | v2=GHSL | v3=GHSL+CHIRPS
+# Résolution cible : 1 000 m | CRS : EPSG:32633 (UTM zone 33N)
+# =============================================================================
+
+gee:
+  project_id: "cameroon-poverty-mapping"
+
+  feature_set: "v2"
+
+  export_scale: 1000
+  crs: "EPSG:32633"
+  tile_scale: 4
+  max_pixels: 1000000000
+
+  temporal:
+    sentinel2_start: "2017-01-01"
+    sentinel2_end: "2019-12-31"
+    viirs_start: "2018-01-01"
+    viirs_end: "2018-12-31"
+    worldpop_year: 2018
+
+  sentinel2:
+    collection: "COPERNICUS/S2_SR_HARMONIZED"
+    cloud_cover_max: 20
+    composite_method: "median"
+    scale_factor: 10000
+    apply_qa_cloud_mask: true
+
+  viirs:
+    collection: "NOAA/VIIRS/001/VNP46A2"
+    band: "DNB_BRDF_Corrected_NTL"
+    gap_fill_band: "Gap_Filled_DNB_BRDF_Corrected_NTL"
+    quality_band: "Mandatory_Quality_Flag"
+    quality_clear_value: 0
+    composite_method: "median"
+
+  dem:
+    collection: "USGS/SRTMGL1_003"
+    elevation_band: "elevation"
+
+  worldpop:
+    collection: "WorldPop/GP/100m/pop"
+    band: "population"
+
+  landcover:
+    collection: "ESA/WorldCover/v200"
+    built_class: 50
+
+  ghsl:
+    collection: "JRC/GHSL/P2023A/GHS_BUILT_S"
+    epoch_year: 2015
+    band: "built_surface"
+    cell_area_m2: 10000
+
+  # CHIRPS daily — précipitations (Phase 1, feature_set v3)
+  chirps:
+    collection: "UCSB-CHG/CHIRPS/DAILY"
+    band: "precipitation"
+    start: "2018-01-01"
+    end: "2018-12-31"
+    # Saison humide Cameroun (hémisphère nord) : mars → novembre
+    wet_season_start_month: 3
+    wet_season_end_month: 11
+
+  osm:
+    roads: "projects/sat-io/open-datasets/GRIP4/Africa"
+    health_nodes: "projects/sat-io/open-datasets/health-site-node"
+    health_ways: "projects/sat-io/open-datasets/health-site-way"
+    health_property: "healthcare"
+    schools: null
+    schools_local_geojson: "data/processed/hotosm_cmr_education_points.geojson"
+    schools_source: "hotosm_hdx"
+    feature_property: "amenity"
+    school_amenity_property: "amenity"
+    school_building_property: "building"
+    school_amenity_tags: ["school", "kindergarten", "college", "university"]
+    school_building_tags: ["school", "kindergarten", "college", "university", "education"]
+    school_tags: ["school", "college", "university", "kindergarten"]
+    health_tags: ["hospital", "clinic", "doctors", "pharmacy"]
+    max_distance_m: 50000
+
+  aoi:
+    country_asset: "USDOS/LSIB_SIMPLE/2017"
+    country_filter_property: "country_co"
+    country_filter_value: "CM"
+
+  test_aoi:
+    name: "yaounde_test"
+    bbox: [11.40, 3.70, 11.70, 4.00]
+
+  export:
+    asset_prefix: "projects/cameroon-poverty-mapping/assets/cm_poverty"
+    drive_folder: "cameroon-poverty-mapping"
+    national_tile_degrees: 1.0
+
+  # Colonnes v1 (base) — conservées pour rétrocompatibilité
+  feature_columns:
+    - night_lights_mean
+    - ndvi_mean
+    - ndbi_mean
+    - dist_road_km
+    - dist_school_km
+    - dist_health_km
+    - pop_density
+    - elevation_m
+    - slope_deg
+    - built_density
+
+  band_names:
+    night_lights_mean: "night_lights"
+    ndvi_mean: "ndvi"
+    ndbi_mean: "ndbi"
+    dist_road_km: "dist_road_m"
+    dist_school_km: "dist_school_m"
+    dist_health_km: "dist_health_m"
+    pop_density: "pop_density"
+    elevation_m: "elevation"
+    slope_deg: "slope"
+    built_density: "built_density"
+
+  feature_sets:
+    v2:
+      feature_columns:
+        - night_lights_mean
+        - ndvi_mean
+        - ndbi_mean
+        - dist_road_km
+        - dist_school_km
+        - dist_health_km
+        - pop_density
+        - elevation_m
+        - slope_deg
+        - ghsl_built_fraction
+      band_names:
+        night_lights_mean: "night_lights"
+        ndvi_mean: "ndvi"
+        ndbi_mean: "ndbi"
+        dist_road_km: "dist_road_m"
+        dist_school_km: "dist_school_m"
+        dist_health_km: "dist_health_m"
+        pop_density: "pop_density"
+        elevation_m: "elevation"
+        slope_deg: "slope"
+        ghsl_built_fraction: "ghsl_built"
+    v3:
+      feature_columns:
+        - night_lights_mean
+        - ndvi_mean
+        - ndbi_mean
+        - dist_road_km
+        - dist_school_km
+        - dist_health_km
+        - pop_density
+        - elevation_m
+        - slope_deg
+        - ghsl_built_fraction
+        - precip_annual_mm
+        - precip_wet_season_mm
+        - precip_cv
+      band_names:
+        night_lights_mean: "night_lights"
+        ndvi_mean: "ndvi"
+        ndbi_mean: "ndbi"
+        dist_road_km: "dist_road_m"
+        dist_school_km: "dist_school_m"
+        dist_health_km: "dist_health_m"
+        pop_density: "pop_density"
+        elevation_m: "elevation"
+        slope_deg: "slope"
+        ghsl_built_fraction: "ghsl_built"
+        precip_annual_mm: "precip_annual"
+        precip_wet_season_mm: "precip_wet"
+        precip_cv: "precip_cv"
