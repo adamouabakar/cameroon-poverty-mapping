@@ -56,7 +56,7 @@
 ### Installation
 
 ```bash
-git clone https://github.com/OneLogTech/cameroon-poverty-mapping.git
+git clone https://github.com/adamouabakar/cameroon-poverty-mapping.git
 cd cameroon-poverty-mapping
 
 python -m venv .venv

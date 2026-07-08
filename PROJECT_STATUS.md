@@ -22,7 +22,7 @@ Le pipeline **Phase 1 (cartographie)** est **fonctionnel et validé** sur les **
 | Documentation | ✅ | README, REPRODUCIBILITY, limitations |
 | Tests automatisés | ✅ | 50 passed (`make test`) |
 | Automatisation | ✅ | `run_pipeline.py`, `regenerate_maps.py`, `Makefile` |
-| Publication GitHub | ✅ Prêt | `OneLogTech/cameroon-poverty-mapping` ; données DHS locales requises |
+| Publication GitHub | ✅ Prêt | `adamouabakar/cameroon-poverty-mapping` ; données DHS locales requises |
 
 ---
 
@@ -54,7 +54,7 @@ Feature set : v3 (GHSL + CHIRPS)
 
 ### Court terme (manuel)
 
-- [x] URL GitHub : `https://github.com/OneLogTech/cameroon-poverty-mapping`
+- [x] URL GitHub : `https://github.com/adamouabakar/cameroon-poverty-mapping`
 - [x] Dépôt GitHub créé (vide) — `git push -u origin main` à lancer localement avec authentification
 - [x] Workflow CI GitHub Actions (`.github/workflows/ci.yml`)
 - [x] Dépôt Git initialisé (premier commit local)

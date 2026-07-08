@@ -4,8 +4,8 @@ message: "If you use this software, please cite it as below."
 type: software
 authors:
   - name: "Cameroon Poverty Mapping contributors"
-repository-code: "https://github.com/OneLogTech/cameroon-poverty-mapping"
-url: "https://github.com/OneLogTech/cameroon-poverty-mapping"
+repository-code: "https://github.com/adamouabakar/cameroon-poverty-mapping"
+url: "https://github.com/adamouabakar/cameroon-poverty-mapping"
 license: MIT
 version: 0.1.0
 date-released: 2026-07-06
