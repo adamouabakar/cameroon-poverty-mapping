@@ -17,7 +17,7 @@ Le pipeline **Phase 1 (cartographie)** est **fonctionnel et validé** sur les **
 | Modèle LightGBM + CV spatiale | ✅ | Block CV, 5 folds |
 | Évaluation OOF réelle | ✅ | `real_model_results.json` |
 | Visualisations + cartes | ✅ | Nationale + 6 régions |
-| Raster national 1 km | 🔄 Sprint 1 | Export GEE national v3 lancé ; inférence raster dès GeoTIFF disponible |
+| Raster national 1 km | 🔄 Sprint 1 | Inférence raster **validée** (AOI test) ; mosaïque nationale en cours |
 | Wealth z-score | ✅ Sprint 1 | RMSE 0.46 σ, modèle `*_zscore.pkl` |
 | Phase 2 priorisation | 🔲 Planifié | Code squelette présent |
 | Documentation | ✅ | README, REPRODUCIBILITY, limitations |

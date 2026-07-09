@@ -28,6 +28,15 @@ PYTHON = sys.executable
 
 FEATURES_NATIONAL = PROJECT_ROOT / "data/processed/rasters/cm_features_1km_v3.tif"
 FEATURES_TEST = PROJECT_ROOT / "data/processed/rasters/cm_features_test_1km_v3.tif"
+
+
+def _download_features_local(test_only: bool) -> Path | None:
+    script = "download_gee_raster_local.py"
+    if test_only:
+        code, _ = _run(script, "--mode", "test", step="Téléchargement raster test (GEE direct)")
+        return FEATURES_TEST if code == 0 and FEATURES_TEST.exists() else None
+    code, _ = _run(script, "--mode", "national", "--tiles", step="Téléchargement raster national (tuiles)")
+    return FEATURES_NATIONAL if code == 0 and FEATURES_NATIONAL.exists() else None
 SPRINT_REPORT = PROJECT_ROOT / "outputs/reports/sprint1_status.json"
 
 
@@ -149,6 +158,13 @@ def main() -> int:
         elif FEATURES_TEST.exists():
             features_path = FEATURES_TEST
 
+        if not features_path and args.launch_gee_test and FEATURES_TEST.exists() is False:
+            features_path = _download_features_local(test_only=True)
+        if not features_path and FEATURES_NATIONAL.exists():
+            features_path = FEATURES_NATIONAL
+        elif not features_path and FEATURES_TEST.exists():
+            features_path = FEATURES_TEST
+
         if features_path:
             code, _ = _run(
                 "run_national_inference.py",
@@ -163,12 +179,24 @@ def main() -> int:
             if code != 0:
                 errors.append("raster_inference")
         else:
-            msg = (
-                "GeoTIFF features absent — placez le fichier sous "
-                f"{FEATURES_NATIONAL} après export GEE, ou lancez --launch-gee-test."
-            )
-            print(f"\n⚠️  {msg}")
-            report["steps"]["raster_inference"] = {"skipped": msg}
+            dl = _download_features_local(test_only=True)
+            if dl:
+                code, _ = _run(
+                    "run_national_inference.py",
+                    "--mode", "raster",
+                    "--features", str(dl.relative_to(PROJECT_ROOT)),
+                    step="3/4 Inférence raster (test auto-téléchargé)",
+                )
+                report["steps"]["raster_inference"] = {"exit_code": code, "features": str(dl)}
+                if code != 0:
+                    errors.append("raster_inference")
+            else:
+                msg = (
+                    "GeoTIFF absent — lancez : "
+                    "python scripts/download_gee_raster_local.py --mode test"
+                )
+                print(f"\n⚠️  {msg}")
+                report["steps"]["raster_inference"] = {"skipped": msg}
 
     report["release"] = {
         "version": "v0.1.0",

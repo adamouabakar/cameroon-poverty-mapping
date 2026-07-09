@@ -76,9 +76,14 @@ def predict_wealth_raster(
         band_idx = {}
         for i in range(1, src.count + 1):
             name = src.descriptions[i - 1] if src.descriptions[i - 1] else None
-            if name is None:
-                continue
-            band_idx[name] = i
+            if name:
+                band_idx[name] = i
+
+        if len(band_idx) < len(feature_cols):
+            export_bands = [config["band_names"][col] for col in feature_cols]
+            for i, name in enumerate(export_bands, start=1):
+                if i <= src.count:
+                    band_idx.setdefault(name, i)
 
         dst_raw = rasterio.open(raw_path, "w", **profile) if raw_path else None
         with rasterio.open(output_path, "w", **profile) as dst:

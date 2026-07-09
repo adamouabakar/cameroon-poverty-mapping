@@ -79,9 +79,10 @@ python scripts/run_pipeline.py
 # ou : make pipeline
 make test   # 52 tests (données fictives isolées)
 
-# Sprint 1 — export GEE national + z-score
-python scripts/sprint1_launch.py --launch-gee
-python scripts/run_national_inference.py --mode raster --features data/processed/rasters/cm_features_1km_v3.tif
+# Sprint 1 — téléchargement local GEE + inférence raster
+python scripts/download_gee_raster_local.py --mode test
+python scripts/run_national_inference.py --mode raster --features data/processed/rasters/cm_features_test_1km_v3.tif
+python scripts/download_gee_raster_local.py --mode national --tiles
 ```
 
 Étapes individuelles ou partielles :
