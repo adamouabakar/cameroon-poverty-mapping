@@ -7,6 +7,14 @@ import ee
 from src.features.gee.aoi import get_cameroon_geometry
 
 
+def ensure_asset_folder(asset_prefix: str) -> None:
+    """Crée le dossier Asset parent s'il n'existe pas encore."""
+    try:
+        ee.data.getAsset(asset_prefix)
+    except ee.EEException:
+        ee.data.createAsset({"type": "Folder"}, asset_prefix)
+
+
 def export_to_asset(
     image: ee.Image,
     asset_id: str,
@@ -16,7 +24,7 @@ def export_to_asset(
     """Exporte l'image multi-bandes vers un Asset Earth Engine."""
     region = aoi or get_cameroon_geometry(config)
     export_bands = list(config["band_names"].values())
-    export_image = image.select(export_bands).clip(region)
+    export_image = image.select(export_bands).clip(region).toFloat()
 
     task = ee.batch.Export.image.toAsset(
         image=export_image,
@@ -41,7 +49,7 @@ def export_to_drive(
     """Exporte vers Google Drive (fallback)."""
     region = aoi or get_cameroon_geometry(config)
     export_bands = list(config["band_names"].values())
-    export_image = image.select(export_bands).clip(region)
+    export_image = image.select(export_bands).clip(region).toFloat()
 
     task = ee.batch.Export.image.toDrive(
         image=export_image,
@@ -76,6 +84,7 @@ def launch_national_export(
     name = description or _national_export_name(config)
     prefix = config["export"]["asset_prefix"]
     if destination == "asset":
+        ensure_asset_folder(prefix)
         return export_to_asset(image, f"{prefix}/{name}", config, aoi=aoi)
     if destination == "drive":
         return export_to_drive(image, name, config, aoi=aoi)

@@ -90,8 +90,8 @@ def parse_args() -> argparse.Namespace:
     p.add_argument(
         "--gee-destination",
         choices=["asset", "drive"],
-        default="asset",
-        help="Destination export national (défaut: asset)",
+        default="drive",
+        help="Destination export national (défaut: drive — plus fiable sans asset folder)",
     )
     p.add_argument("--skip-zscore", action="store_true")
     p.add_argument("--skip-raster", action="store_true")

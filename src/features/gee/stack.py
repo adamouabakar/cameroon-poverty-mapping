@@ -56,7 +56,8 @@ def build_feature_image(aoi: ee.Geometry, config: dict) -> ee.Image:
         stacked = stacked.addBands(get_chirps_composite(aoi, config))
 
     stacked = stacked.clip(aoi)
-    return reproject_to_target(stacked, config)
+    # Export GEE exige des types homogènes (évite Float64/Float32 mixtes).
+    return reproject_to_target(stacked, config).toFloat()
 
 
 def get_model_bands(config: dict) -> list[str]:
