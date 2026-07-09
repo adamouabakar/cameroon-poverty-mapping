@@ -9,7 +9,7 @@ MOSAIC = PROJECT_ROOT / "data/processed/rasters/cm_features_1km_v3.tif"
 TEST = PROJECT_ROOT / "data/processed/rasters/cm_features_test_1km_v3.tif"
 
 tiles = sorted(TILES_DIR.glob("tile_*.tif")) if TILES_DIR.exists() else []
-expected = 88  # ~11x8 grille 1° sur bbox Cameroun
+expected = 96  # grille 1° sur bbox Cameroun (8° lon × 12° lat)
 pct = min(100, int(100 * len(tiles) / expected)) if expected else 0
 print(f"Tuiles téléchargées : {len(tiles)} / ~{expected} ({pct}%)")
 if tiles:

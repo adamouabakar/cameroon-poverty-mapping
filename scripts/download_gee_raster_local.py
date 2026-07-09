@@ -33,6 +33,7 @@ from src.features.gee.stack import build_feature_image, get_model_bands
 
 RASTERS_DIR = PROJECT_ROOT / "data/processed/rasters"
 TILES_DIR = RASTERS_DIR / "tiles"
+LOCK_FILE = RASTERS_DIR / ".download.lock"
 
 
 def _download_url(image: ee.Image, region: ee.Geometry, config: dict) -> str:
@@ -170,6 +171,14 @@ def download_national_tiles(config: dict) -> Path:
     if not tile_paths:
         raise RuntimeError("Aucune tuile téléchargée.")
 
+    if len(tile_paths) < len(tiles):
+        print(
+            f"⏳ {len(tile_paths)}/{len(tiles)} tuiles — mosaïque différée "
+            f"(relancez ou utilisez finalize_national_coverage.py)",
+            flush=True,
+        )
+        return TILES_DIR
+
     return mosaic_existing_tiles(config)
 
 
@@ -183,8 +192,24 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> int:
     args = parse_args()
+    if args.mode == "national" and args.tiles and not args.mosaic_only:
+        if LOCK_FILE.exists():
+            print(f"⚠️  Téléchargement déjà en cours (lock: {LOCK_FILE})")
+            return 1
+        LOCK_FILE.parent.mkdir(parents=True, exist_ok=True)
+        LOCK_FILE.write_text("running", encoding="utf-8")
+
     config = resolve_feature_set({**load_gee_config(), "feature_set": "v3"})
     initialize_gee(project_id=config.get("project_id"))
+
+    try:
+        return _main_body(args, config)
+    finally:
+        if LOCK_FILE.exists() and args.mode == "national" and args.tiles and not args.mosaic_only:
+            LOCK_FILE.unlink(missing_ok=True)
+
+
+def _main_body(args: argparse.Namespace, config: dict) -> int:
 
     if args.mode == "test":
         dest = download_test(config)
@@ -200,12 +225,15 @@ def main() -> int:
         "timestamp_utc": datetime.now(timezone.utc).isoformat(),
         "mode": args.mode,
         "output": str(dest),
-        "size_mb": round(dest.stat().st_size / 1e6, 2),
     }
+    if dest.is_file():
+        report["size_mb"] = round(dest.stat().st_size / 1e6, 2)
     report_path = PROJECT_ROOT / "outputs/reports/gee_local_download.json"
     report_path.parent.mkdir(parents=True, exist_ok=True)
     report_path.write_text(json.dumps(report, indent=2), encoding="utf-8")
-    print(f"✅ Raster local : {dest} ({report['size_mb']} MB)")
+    print(f"✅ Terminé : {dest}")
+    if dest.is_file():
+        print(f"   Taille : {report['size_mb']} MB")
     print(f"   Rapport : {report_path}")
     return 0
 
