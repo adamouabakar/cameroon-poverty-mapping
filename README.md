@@ -83,6 +83,8 @@ make test   # 52 tests (données fictives isolées)
 python scripts/download_gee_raster_local.py --mode test
 python scripts/run_national_inference.py --mode raster --features data/processed/rasters/cm_features_test_1km_v3.tif
 python scripts/download_gee_raster_local.py --mode national --tiles
+python scripts/finalize_national_coverage.py   # 100% tuiles + mosaïque + inférence
+python scripts/check_raster_progress.py        # suivre la progression
 ```
 
 Étapes individuelles ou partielles :
