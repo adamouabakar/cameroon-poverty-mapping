@@ -143,8 +143,9 @@ def main() -> None:
     root = get_project_root()
     gee_config_path = Path(args.gee_config) if args.gee_config else root / "configs" / "gee.yaml"
     config = load_gee_config(gee_config_path)
-    if args.feature_set:
-        config = resolve_feature_set({**config, "feature_set": args.feature_set})
+    feature_set = args.feature_set or ("v3" if args.mode == "national" else None)
+    if feature_set:
+        config = resolve_feature_set({**config, "feature_set": feature_set})
     clusters_path = root / args.clusters
     output_path = root / args.output
     qa_report_path = root / "outputs/reports/gee_extraction_real_qa.json"
@@ -177,9 +178,27 @@ def main() -> None:
         aoi = get_aoi_geometry(config, mode="national")
         image = build_feature_image(aoi, config)
         task = launch_national_export(image, config, destination=args.destination)
+        status = task.status()
+        export_name = config.get("export", {}).get("national_asset_name", "cm_features_1km_v3")
+        export_report = {
+            "timestamp_utc": datetime.now(timezone.utc).isoformat(),
+            "feature_set": config.get("feature_set"),
+            "task_id": task.id,
+            "state": status.get("state"),
+            "destination": args.destination,
+            "asset_id": f"{config['export']['asset_prefix']}/{export_name}",
+            "scale_m": config["export_scale"],
+            "crs": config["crs"],
+            "bands": get_model_bands(config),
+        }
+        report_path = root / "outputs/reports/gee_national_export.json"
+        report_path.parent.mkdir(parents=True, exist_ok=True)
+        report_path.write_text(json.dumps(export_report, indent=2), encoding="utf-8")
         log["task_id"] = task.id
-        log["status"] = task.status().get("state")
+        log["status"] = status.get("state")
+        log["export_report"] = str(report_path)
         print(f"Export national lancé : task.id={task.id}")
+        print(f"Rapport export : {report_path}")
     else:
         import time
 

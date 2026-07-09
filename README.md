@@ -4,6 +4,7 @@
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/)
 [![DHS 2018](https://img.shields.io/badge/DHS-Cameroun%202018-green.svg)](https://dhsprogram.com/)
 [![GEE](https://img.shields.io/badge/Google%20Earth%20Engine-enabled-orange.svg)](https://earthengine.google.com/)
+[![CI](https://github.com/adamouabakar/cameroon-poverty-mapping/actions/workflows/ci.yml/badge.svg)](https://github.com/adamouabakar/cameroon-poverty-mapping/actions/workflows/ci.yml)
 
 **Pipeline open-source et reproductible** pour estimer l'indice de richesse DHS à **~1 km** au Cameroun, à partir de données ouvertes (DHS 2018, imagerie satellite, OSM, WorldPop) et d'un modèle **LightGBM** validé spatialement.
 
@@ -76,7 +77,11 @@ Configurer `gee.project_id` dans `configs/gee.yaml`.
 ```bash
 python scripts/run_pipeline.py
 # ou : make pipeline
-make test   # 50 tests (données fictives isolées)
+make test   # 52 tests (données fictives isolées)
+
+# Sprint 1 — export GEE national + z-score
+python scripts/sprint1_launch.py --launch-gee
+python scripts/run_national_inference.py --mode raster --features data/processed/rasters/cm_features_1km_v3.tif
 ```
 
 Étapes individuelles ou partielles :

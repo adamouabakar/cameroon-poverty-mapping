@@ -12,6 +12,7 @@ import numpy as np
 import pandas as pd
 import rasterio
 
+from src.data.wealth_scaling import WealthScaler, load_scaler
 from src.models.save_load import load_model
 
 
@@ -47,11 +48,16 @@ def predict_wealth_raster(
     *,
     chunk_size: int = 512,
     nodata: float = -9999.0,
+    scaler_path: str | Path | None = None,
+    output_raw_path: str | Path | None = None,
 ) -> Path:
     """
     Lit un GeoTIFF multi-bandes, prédit wealth_index pixel à pixel par chunks.
     """
     model = load_model(model_path)
+    scaler: WealthScaler | None = None
+    if scaler_path and Path(scaler_path).exists():
+        scaler = load_scaler(scaler_path)
     feature_cols = config["feature_columns"]
     band_map = _band_to_column_map(config)
     defaults = _impute_defaults(config)
@@ -59,6 +65,9 @@ def predict_wealth_raster(
 
     output_path = Path(output_path)
     output_path.parent.mkdir(parents=True, exist_ok=True)
+    raw_path = Path(output_raw_path) if output_raw_path else None
+    if raw_path:
+        raw_path.parent.mkdir(parents=True, exist_ok=True)
 
     with rasterio.open(feature_raster_path) as src:
         profile = src.profile.copy()
@@ -71,6 +80,7 @@ def predict_wealth_raster(
                 continue
             band_idx[name] = i
 
+        dst_raw = rasterio.open(raw_path, "w", **profile) if raw_path else None
         with rasterio.open(output_path, "w", **profile) as dst:
             for ji in range(0, src.height, chunk_size):
                 h = min(chunk_size, src.height - ji)
@@ -95,5 +105,12 @@ def predict_wealth_raster(
                     pred = model.predict(X).reshape(h, w).astype(np.float32)
                     pred[~np.isfinite(pred)] = nodata
                     dst.write(pred, 1, window=window)
+                    if dst_raw is not None and scaler is not None:
+                        pred_raw = scaler.inverse_transform(pred.ravel()).reshape(h, w).astype(np.float32)
+                        pred_raw[~np.isfinite(pred_raw)] = nodata
+                        dst_raw.write(pred_raw, 1, window=window)
+
+        if dst_raw is not None:
+            dst_raw.close()
 
     return output_path

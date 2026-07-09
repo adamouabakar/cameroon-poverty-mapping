@@ -17,7 +17,8 @@ Le pipeline **Phase 1 (cartographie)** est **fonctionnel et validé** sur les **
 | Modèle LightGBM + CV spatiale | ✅ | Block CV, 5 folds |
 | Évaluation OOF réelle | ✅ | `real_model_results.json` |
 | Visualisations + cartes | ✅ | Nationale + 6 régions |
-| Raster national 1 km | ⚠️ Partiel | Interpolation RBF ; inférence GEE raster en attente d'export |
+| Raster national 1 km | 🔄 Sprint 1 | Export GEE national v3 lancé ; inférence raster dès GeoTIFF disponible |
+| Wealth z-score | ✅ Sprint 1 | RMSE 0.46 σ, modèle `*_zscore.pkl` |
 | Phase 2 priorisation | 🔲 Planifié | Code squelette présent |
 | Documentation | ✅ | README, REPRODUCIBILITY, limitations |
 | Tests automatisés | ✅ | 50 passed (`make test`) |
@@ -58,7 +59,10 @@ Feature set : v3 (GHSL + CHIRPS)
 - [x] Dépôt GitHub créé (vide) — `git push -u origin main` à lancer localement avec authentification
 - [x] Workflow CI GitHub Actions (`.github/workflows/ci.yml`)
 - [x] Dépôt Git initialisé (premier commit local)
-- [ ] Export GEE national → inférence raster directe (`run_national_inference.py --mode raster`)
+- [x] Wealth z-score + modèle `wealth_model_lgbm_v0_gee_v3_zscore.pkl`
+- [~] Export GEE national v3 → tâche async (voir `outputs/reports/gee_national_export.json`)
+- [ ] Télécharger GeoTIFF → `data/processed/rasters/cm_features_1km_v3.tif`
+- [ ] Inférence raster directe (`run_national_inference.py --mode raster`)
 - [ ] Migrer VIIRS vers `NASA/VIIRS/002/VNP46A2`
 - [ ] Standardiser `wealth_index` (z-score) pour métriques RMSE interprétables
 

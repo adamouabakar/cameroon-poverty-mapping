@@ -57,18 +57,26 @@ def export_to_drive(
     return task
 
 
+def _national_export_name(config: dict) -> str:
+    return config.get("export", {}).get("national_asset_name", "cm_features_1km_v3")
+
+
 def launch_national_export(
     image: ee.Image,
     config: dict,
     destination: str = "asset",
+    *,
+    aoi: ee.Geometry | None = None,
+    description: str | None = None,
 ) -> ee.batch.Task:
     """
     Lance l'export national. Pour les très grands AOIs, préférer un découpage
     manuel par tuiles régionales (voir documentation/gee_features.md).
     """
+    name = description or _national_export_name(config)
     prefix = config["export"]["asset_prefix"]
     if destination == "asset":
-        return export_to_asset(image, f"{prefix}/cm_features_1km_v1", config)
+        return export_to_asset(image, f"{prefix}/{name}", config, aoi=aoi)
     if destination == "drive":
-        return export_to_drive(image, "cm_features_1km_v1", config)
+        return export_to_drive(image, name, config, aoi=aoi)
     raise ValueError(f"Destination inconnue : {destination}")

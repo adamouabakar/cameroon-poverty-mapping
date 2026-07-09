@@ -24,6 +24,8 @@ MAPS_DIR = PROJECT_ROOT / "outputs/maps"
 CLUSTERS_PATH = PROJECT_ROOT / "data/processed/dhs_clusters_real.parquet"
 OOF_PATH = PROJECT_ROOT / "data/processed/training/oof_predictions.parquet"
 MODEL_PATH = PROJECT_ROOT / "models/wealth_model_lgbm_v0_gee_v3.pkl"
+MODEL_ZSCORE_PATH = PROJECT_ROOT / "models/wealth_model_lgbm_v0_gee_v3_zscore.pkl"
+SCALER_PATH = PROJECT_ROOT / "data/processed/training/wealth_scaler.json"
 
 
 def run_interpolate() -> dict:
@@ -74,10 +76,34 @@ def run_raster(features_path: Path) -> dict:
 
     config = resolve_feature_set({**load_gee_config(), "feature_set": "v3"})
     MAPS_DIR.mkdir(parents=True, exist_ok=True)
-    out = MAPS_DIR / "wealth_index_predicted_1km_model.tif"
-    predict_wealth_raster(features_path, MODEL_PATH, out, config)
-    plot_raster_preview(out, MAPS_DIR / "wealth_index_predicted_1km_model.png", title="Inférence modèle sur grille GEE 1 km")
-    return {"mode": "raster", "wealth_raster": str(out), "features_raster": str(features_path)}
+
+    use_zscore = MODEL_ZSCORE_PATH.exists() and SCALER_PATH.exists()
+    model_path = MODEL_ZSCORE_PATH if use_zscore else MODEL_PATH
+    out_z = MAPS_DIR / "wealth_index_predicted_1km_model_z.tif"
+    out_raw = MAPS_DIR / "wealth_index_predicted_1km_model.tif"
+
+    predict_wealth_raster(
+        features_path,
+        model_path,
+        out_z if use_zscore else out_raw,
+        config,
+        scaler_path=SCALER_PATH if use_zscore else None,
+        output_raw_path=out_raw if use_zscore else None,
+    )
+    preview_path = out_raw if out_raw.exists() else out_z
+    plot_raster_preview(
+        preview_path,
+        MAPS_DIR / "wealth_index_predicted_1km_model.png",
+        title="Inférence modèle sur grille GEE 1 km (raster direct)",
+    )
+    return {
+        "mode": "raster",
+        "model": str(model_path),
+        "wealth_raster_z": str(out_z) if use_zscore else None,
+        "wealth_raster_raw": str(out_raw),
+        "features_raster": str(features_path),
+        "note": "Inférence pixel à pixel depuis stack GEE exporté — pas interpolation RBF.",
+    }
 
 
 def parse_args() -> argparse.Namespace:

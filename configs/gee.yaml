@@ -94,6 +94,7 @@ gee:
   export:
     asset_prefix: "projects/cameroon-poverty-mapping/assets/cm_poverty"
     drive_folder: "cameroon-poverty-mapping"
+    national_asset_name: "cm_features_1km_v3"
     national_tile_degrees: 1.0
 
   # Colonnes v1 (base) — conservées pour rétrocompatibilité
