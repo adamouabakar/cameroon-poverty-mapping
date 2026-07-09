@@ -82,11 +82,25 @@ def download_region(
     return dest
 
 
+def _bounds_from_geometry(geom_info: dict) -> tuple[float, float, float, float]:
+    """Extrait west/south/east/north depuis getInfo() d'une géométrie EE."""
+    if "coordinates" not in geom_info:
+        raise ValueError(f"Géométrie non supportée : {geom_info.get('type')}")
+    if geom_info["type"] == "Polygon":
+        ring = geom_info["coordinates"][0]
+    elif geom_info["type"] == "MultiPolygon":
+        ring = geom_info["coordinates"][0][0]
+    else:
+        raise ValueError(f"Type géométrique non supporté : {geom_info['type']}")
+    lons = [pt[0] for pt in ring]
+    lats = [pt[1] for pt in ring]
+    return min(lons), min(lats), max(lons), max(lats)
+
+
 def _tile_rectangles(config: dict) -> list[ee.Geometry]:
     cm = get_cameroon_geometry(config)
-    bounds = cm.bounds().getInfo()
     step = float(config.get("export", {}).get("national_tile_degrees", 1.0))
-    west, south, east, north = bounds["west"], bounds["south"], bounds["east"], bounds["north"]
+    west, south, east, north = _bounds_from_geometry(cm.bounds().getInfo())
 
     rects = []
     lat = south
