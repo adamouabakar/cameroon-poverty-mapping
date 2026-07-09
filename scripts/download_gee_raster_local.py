@@ -121,31 +121,12 @@ def download_test(config: dict) -> Path:
     return download_region(image, aoi, config, dest)
 
 
-def download_national_tiles(config: dict) -> Path:
-    image = build_feature_image(get_cameroon_geometry(config), config)
-    tiles = _tile_rectangles(config)
-    TILES_DIR.mkdir(parents=True, exist_ok=True)
-    tile_paths: list[Path] = []
-
-    print(f"▶ Export national par tuiles ({len(tiles)} rectangles 1°)")
-    for i, rect in enumerate(tiles):
-        dest = TILES_DIR / f"tile_{i:03d}.tif"
-        if dest.exists() and dest.stat().st_size > 1000:
-            print(f"   Tuile {i+1}/{len(tiles)} — déjà présente")
-            tile_paths.append(dest)
-            continue
-        print(f"   Tuile {i+1}/{len(tiles)}…")
-        try:
-            download_region(image, rect, config, dest)
-            tile_paths.append(dest)
-        except Exception as exc:
-            print(f"   ⚠️  Tuile {i} ignorée : {exc}")
-
+def mosaic_existing_tiles(config: dict) -> Path:
+    tile_paths = sorted(TILES_DIR.glob("tile_*.tif"))
     if not tile_paths:
-        raise RuntimeError("Aucune tuile téléchargée.")
-
+        raise RuntimeError(f"Aucune tuile dans {TILES_DIR}")
     mosaic_path = RASTERS_DIR / "cm_features_1km_v3.tif"
-    print(f"▶ Mosaïque {len(tile_paths)} tuiles → {mosaic_path}")
+    print(f"▶ Mosaïque {len(tile_paths)} tuiles existantes → {mosaic_path}", flush=True)
     datasets = [rasterio.open(p) for p in tile_paths]
     try:
         mosaic, out_transform = rio_merge(datasets)
@@ -166,10 +147,37 @@ def download_national_tiles(config: dict) -> Path:
     return mosaic_path
 
 
+def download_national_tiles(config: dict) -> Path:
+    image = build_feature_image(get_cameroon_geometry(config), config)
+    tiles = _tile_rectangles(config)
+    TILES_DIR.mkdir(parents=True, exist_ok=True)
+    tile_paths: list[Path] = []
+
+    print(f"▶ Export national par tuiles ({len(tiles)} rectangles 1°)", flush=True)
+    for i, rect in enumerate(tiles):
+        dest = TILES_DIR / f"tile_{i:03d}.tif"
+        if dest.exists() and dest.stat().st_size > 1000:
+            print(f"   Tuile {i+1}/{len(tiles)} — déjà présente", flush=True)
+            tile_paths.append(dest)
+            continue
+        print(f"   Tuile {i+1}/{len(tiles)} — téléchargement…", flush=True)
+        try:
+            download_region(image, rect, config, dest)
+            tile_paths.append(dest)
+        except Exception as exc:
+            print(f"   ⚠️  Tuile {i} ignorée : {exc}")
+
+    if not tile_paths:
+        raise RuntimeError("Aucune tuile téléchargée.")
+
+    return mosaic_existing_tiles(config)
+
+
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description="Téléchargement local raster GEE v3")
     p.add_argument("--mode", choices=["test", "national"], default="test")
     p.add_argument("--tiles", action="store_true", help="Découpage national en tuiles 1°")
+    p.add_argument("--mosaic-only", action="store_true", help="Assembler les tuiles déjà téléchargées")
     return p.parse_args()
 
 
@@ -180,6 +188,8 @@ def main() -> int:
 
     if args.mode == "test":
         dest = download_test(config)
+    elif args.mosaic_only:
+        dest = mosaic_existing_tiles(config)
     else:
         if not args.tiles:
             print("❌ Le mode national requiert --tiles (limite getDownloadURL GEE).")
