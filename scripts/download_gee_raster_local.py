@@ -148,15 +148,30 @@ def mosaic_existing_tiles(config: dict) -> Path:
     return mosaic_path
 
 
-def download_national_tiles(config: dict, *, force: bool = False) -> Path:
+def download_national_tiles(
+    config: dict,
+    *,
+    force: bool = False,
+    from_tile: int = 0,
+) -> Path:
     image = build_feature_image(get_cameroon_geometry(config), config)
     tiles = _tile_rectangles(config)
     TILES_DIR.mkdir(parents=True, exist_ok=True)
     tile_paths: list[Path] = []
 
+    if from_tile > 0:
+        print(f"▶ Reprise à partir de tile_{from_tile:03d}.tif", flush=True)
+
     print(f"▶ Export national par tuiles ({len(tiles)} rectangles 1°)", flush=True)
     for i, rect in enumerate(tiles):
         dest = TILES_DIR / f"tile_{i:03d}.tif"
+        if i < from_tile:
+            if dest.exists() and dest.stat().st_size > 1000:
+                print(f"   Tuile {i+1}/{len(tiles)} — conservée", flush=True)
+                tile_paths.append(dest)
+            else:
+                print(f"   Tuile {i+1}/{len(tiles)} — manquante avant reprise", flush=True)
+            continue
         if not force and dest.exists() and dest.stat().st_size > 1000:
             print(f"   Tuile {i+1}/{len(tiles)} — déjà présente", flush=True)
             tile_paths.append(dest)
@@ -188,6 +203,12 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--tiles", action="store_true", help="Découpage national en tuiles 1°")
     p.add_argument("--mosaic-only", action="store_true", help="Assembler les tuiles déjà téléchargées")
     p.add_argument("--force", action="store_true", help="Re-télécharger même si la tuile existe")
+    p.add_argument(
+        "--from-tile",
+        type=int,
+        default=0,
+        help="Reprendre au numéro de fichier (ex. 67 → tile_067.tif)",
+    )
     return p.parse_args()
 
 
@@ -220,7 +241,9 @@ def _main_body(args: argparse.Namespace, config: dict) -> int:
         if not args.tiles:
             print("❌ Le mode national requiert --tiles (limite getDownloadURL GEE).")
             return 1
-        dest = download_national_tiles(config, force=args.force)
+        dest = download_national_tiles(
+            config, force=args.force, from_tile=args.from_tile
+        )
 
     report = {
         "timestamp_utc": datetime.now(timezone.utc).isoformat(),
