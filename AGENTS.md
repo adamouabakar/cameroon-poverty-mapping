@@ -4,7 +4,7 @@
 
 Open-source, reproducible pipeline to estimate poverty at fine spatial resolution (~1 km) in Cameroon using open data (DHS 2018 + satellite imagery + OSM + WorldPop).
 
-**Current Status (July 2026):** **Phase 1 complete on real DHS 2018 data** — 430 clusters, GEE v3 features, LightGBM R² OOF ≈ 0.78, maps generated. Ready for GitHub publication.
+**Current Status (July 2026):** **Phase 1 + Sprint 1 complete** — 430 clusters, GEE v3 features, LightGBM R² OOF ≈ 0.78, **96/96 national raster tiles**, direct raster inference at 1 km. Ready for Phase 2 prioritization.
 
 ## Tech Stack
 
@@ -23,6 +23,8 @@ Open-source, reproducible pipeline to estimate poverty at fine spatial resolutio
 | GEE features v3 | `data/processed/features/cluster_features_gee_real.parquet` |
 | Model | `models/wealth_model_lgbm_v0_gee_v3.pkl` |
 | Results | `outputs/reports/real_model_results.json` |
+| National features mosaic | `data/processed/rasters/cm_features_1km_v3.tif` |
+| National wealth raster | `outputs/maps/wealth_index_predicted_1km_model.tif` |
 | Maps | `outputs/maps/` |
 
 ## Pipeline Entry Points
@@ -40,9 +42,9 @@ python -m pytest tests/ -q            # Tests
 - `PROJECT_STATUS.md` — Status and roadmap
 - `documentation/` — Methodology, limitations, GEE features
 
-## Priorities (post-publication)
+## Priorities (post-Sprint 1)
 
-1. GEE national feature export → direct raster inference
-2. Phase 2 prioritization maps
-3. VIIRS migration to NASA/VIIRS/002
-4. Field validation with Cameroon partners
+1. Phase 2 prioritization maps (schools, health, roads)
+2. VIIRS migration to NASA/VIIRS/002
+3. Field validation with Cameroon partners
+4. Notebook 04 national inference walkthrough

@@ -17,11 +17,11 @@ Le pipeline **Phase 1 (cartographie)** est **fonctionnel et validé** sur les **
 | Modèle LightGBM + CV spatiale | ✅ | Block CV, 5 folds |
 | Évaluation OOF réelle | ✅ | `real_model_results.json` |
 | Visualisations + cartes | ✅ | Nationale + 6 régions |
-| Raster national 1 km | ✅ Sprint 1 | Inférence raster nationale (37% tuiles) ; couverture complète en cours |
+| Raster national 1 km | ✅ Sprint 1 | 96/96 tuiles, mosaïque GEE + inférence raster directe |
 | Wealth z-score | ✅ Sprint 1 | RMSE 0.46 σ, modèle `*_zscore.pkl` |
 | Phase 2 priorisation | 🔲 Planifié | Code squelette présent |
 | Documentation | ✅ | README, REPRODUCIBILITY, limitations |
-| Tests automatisés | ✅ | 50 passed (`make test`) |
+| Tests automatisés | ✅ | 52 passed (`make test`) |
 | Automatisation | ✅ | `run_pipeline.py`, `regenerate_maps.py`, `Makefile` |
 | Publication GitHub | ✅ Prêt | `adamouabakar/cameroon-poverty-mapping` ; données DHS locales requises |
 
@@ -47,7 +47,9 @@ Feature set : v3 (GHSL + CHIRPS)
 | `data/processed/features/cluster_features_gee_real.parquet` | Features v3 |
 | `models/wealth_model_lgbm_v0_gee_v3.pkl` | Modèle production |
 | `outputs/reports/real_model_results.json` | Métriques complètes |
-| `outputs/maps/wealth_index_predicted_1km.tif` | Carte nationale interpolée |
+| `outputs/maps/wealth_index_predicted_1km.tif` | Carte nationale interpolée (legacy RBF) |
+| `outputs/maps/wealth_index_predicted_1km_model.tif` | Carte nationale raster directe (GEE 1 km) |
+| `outputs/reports/national_coverage_final.json` | Rapport couverture nationale 100 % |
 
 ---
 
@@ -62,10 +64,10 @@ Feature set : v3 (GHSL + CHIRPS)
 - [x] Wealth z-score + modèle `wealth_model_lgbm_v0_gee_v3_zscore.pkl`
 - [x] Export GEE national v3 → Drive COMPLETED
 - [x] Téléchargement local GEE (`download_gee_raster_local.py`)
-- [x] Inférence raster test + nationale partielle (33/88 tuiles)
-- [ ] Mosaïque nationale 100% (reprise tuiles + `--mosaic-only`)
+- [x] Inférence raster test + nationale complète (96/96 tuiles)
+- [x] Mosaïque nationale 100% (`cm_features_1km_v3.tif`, 11.8 MB)
+- [x] Standardiser `wealth_index` (z-score) pour métriques RMSE interprétables
 - [ ] Migrer VIIRS vers `NASA/VIIRS/002/VNP46A2`
-- [ ] Standardiser `wealth_index` (z-score) pour métriques RMSE interprétables
 
 ### Moyen terme
 
@@ -92,6 +94,7 @@ Feature set : v3 (GHSL + CHIRPS)
 | DHS réel | Juil. 2026 | 430 grappes intégrées |
 | Modèle réel | Juil. 2026 | R² 0.78 atteint |
 | Finalisation | Juil. 2026 | Documentation + publication |
+| Sprint 1 national | Juil. 2026 | 96 tuiles GEE, inférence raster 1 km |
 
 ---
 

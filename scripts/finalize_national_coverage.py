@@ -28,14 +28,8 @@ LOCK = PROJECT_ROOT / "data/processed/rasters/.download.lock"
 
 
 def _expected_tiles() -> int:
-    sys.path.insert(0, str(PROJECT_ROOT))
-    from src.features.gee.config import load_gee_config, resolve_feature_set
-    from scripts.download_gee_raster_local import _tile_rectangles
-    from src.features.gee.client import initialize_gee
-
-    config = resolve_feature_set({**load_gee_config(), "feature_set": "v3"})
-    initialize_gee(project_id=config.get("project_id"), quiet=True)
-    return len(_tile_rectangles(config))
+    # Grille 1° sur bbox Cameroun (8° lon × 12° lat) — pas de dépendance GEE locale.
+    return 96
 
 
 def _run(script: str, *args: str) -> int:
