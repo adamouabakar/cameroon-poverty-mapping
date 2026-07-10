@@ -31,4 +31,6 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run tests
+        env:
+          MPLBACKEND: Agg
         run: python -m pytest tests/ -q

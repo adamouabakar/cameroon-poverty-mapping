@@ -1,0 +1,43 @@
+# Partner Dialogue Pack — single source of truth for UI / pack copy.
+# Schema V1 (required keys validated by src/partner_web/claims.py).
+
+version: 1
+country: Cameroun
+dhs_year: 2018
+contact_email: "contact@example.com"  # replace before public share
+
+wealth_units: zscore  # zscore | raw — must match chosen wealth raster
+
+banner_fr: >-
+  Estimations exploratoires (DHS 2018 + satellite). Ne remplacent pas l'INS.
+  Pas de ciblage ménage ou village. Vue nationale / régionale large seulement —
+  croiser toujours la couche incertitude.
+
+banner_en_one_liner: >-
+  Exploratory estimates only (DHS 2018). Not official INS stats. No household
+  or village targeting. National/regional overview only — always check uncertainty.
+
+layer_labels:
+  wealth: "Indice de richesse estimé (proxy DHS, 1 km)"
+  priority: "Indice exploratoire de priorisation (non opérationnel)"
+  uncertainty: "Variabilité du modèle (ensemble CV) — croiser avant lecture"
+
+anti_targeting_fr: |
+  Ces cartes ne doivent pas servir au ciblage de ménages, villages ou
+  individus, ni remplacer les statistiques officielles. Toute décision
+  opérationnelle exige validation locale et sources institutionnelles.
+
+metrics_keys:
+  r2: metrics_oof.r2
+  spearman: metrics_oof.spearman
+  rmse: metrics_oof.rmse
+  mae: metrics_oof.mae
+  n_clusters: n_clusters
+  cv_strategy: cv_strategy
+
+# Optional path overrides (relative to repo root). Empty = defaults.
+input_paths:
+  wealth: ""
+  priority: ""
+  uncertainty: ""
+  metrics: ""

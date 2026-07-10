@@ -98,6 +98,36 @@ python scripts/run_pipeline.py --only maps     # Régénérer cartes
 python scripts/regenerate_maps.py              # Alias cartes uniquement
 ```
 
+### Partner web & pack atelier (Dialogue Pack)
+
+Carte nationale statique (Leaflet vendored, 3 couches) + pack FR pour partenaires (brief, deep-dives, zip offline, strip WhatsApp).
+
+Prérequis : rasters locaux dans `outputs/maps/` (voir pipeline) + `configs/claims.yaml` (éditer `contact_email`).
+
+```bash
+# Tests (fixtures synthétiques, pas de GEE)
+python scripts/make_partner_web_fixtures.py   # une fois
+python -m pytest tests/test_partner_web_*.py -q
+
+# Build site/ + partner_pack/ (rasters réels)
+python scripts/build_partner_web.py
+# Smoke fixtures only :
+python scripts/build_partner_web.py --fixtures
+```
+
+| Sortie | Rôle |
+|--------|------|
+| `site/index.html` | Carte (ouvrir en local ou GitHub Pages `/site`) |
+| `site/build_manifest.json` | Métadonnées build |
+| `partner_pack/` | Brief FR, deep-dives, CSV terrain, email type |
+| `partner_pack/offline_bundle.zip` | Site + pack hors ligne |
+
+**Deploy Pages :** Settings → Pages → Deploy from branch → folder `/site` (assets relatifs : OK en `file://` et Pages).
+
+**Checklist 5 min post-deploy :** 3 couches visibles · bandeau non masquable · maxZoom 11 · mailto contact · pas de CDN Leaflet · croiser incertitude.
+
+> Estimations exploratoires uniquement — [limitations](documentation/limitations.md). Pas de ciblage ménage/village.
+
 Si les parquets sont déjà générés :
 
 ```bash

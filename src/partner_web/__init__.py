@@ -1,0 +1,13 @@
+"""Partner Dialogue Pack: national web map + atelier pack build pipeline."""
+
+__all__ = ["EXIT_OK", "EXIT_MISSING_RASTER", "EXIT_EMPTY_UNCERTAINTY", "EXIT_PAYLOAD",
+           "EXIT_CLAIMS", "EXIT_CRS", "EXIT_PATH_LEAK", "EXIT_IO"]
+
+EXIT_OK = 0
+EXIT_MISSING_RASTER = 2
+EXIT_EMPTY_UNCERTAINTY = 3
+EXIT_PAYLOAD = 4
+EXIT_CLAIMS = 5
+EXIT_CRS = 6
+EXIT_PATH_LEAK = 7
+EXIT_IO = 8

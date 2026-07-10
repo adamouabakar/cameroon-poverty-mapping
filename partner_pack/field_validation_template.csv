@@ -1,0 +1,2 @@
+site_id,region,lat,lon,predicted_wealth_bin,uncertainty_bin,local_assessment,notes,observer,date
+ex1,Littoral,,,moyen,moyen,similaire,,,
