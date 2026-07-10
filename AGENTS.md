@@ -43,9 +43,9 @@ python -m pytest tests/ -q            # Tests
 - `PROJECT_STATUS.md` — Status and roadmap
 - `documentation/` — Methodology, limitations, GEE features
 
-## Priorities (post-Sprint 2)
+## Priorities (post-VIIRS migration)
 
-1. VIIRS migration to NASA/VIIRS/002
+1. Re-export GEE features v3 (clusters + national) with NASA/002 VIIRS
 2. Field validation with Cameroon partners
 3. Notebook 04 national inference + prioritization walkthrough
 4. Uncertainty maps on national raster grid

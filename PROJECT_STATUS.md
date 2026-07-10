@@ -69,7 +69,7 @@ Feature set : v3 (GHSL + CHIRPS)
 - [x] Inférence raster test + nationale complète (96/96 tuiles)
 - [x] Mosaïque nationale 100% (`cm_features_1km_v3.tif`, 11.8 MB)
 - [x] Standardiser `wealth_index` (z-score) pour métriques RMSE interprétables
-- [ ] Migrer VIIRS vers `NASA/VIIRS/002/VNP46A2`
+- [x] Migrer VIIRS vers `NASA/VIIRS/002/VNP46A2`
 
 ### Moyen terme
 

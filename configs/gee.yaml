@@ -30,11 +30,11 @@ gee:
     apply_qa_cloud_mask: true
 
   viirs:
-    collection: "NOAA/VIIRS/001/VNP46A2"
-    band: "DNB_BRDF_Corrected_NTL"
+    collection: "NASA/VIIRS/002/VNP46A2"
+    band: "Gap_Filled_DNB_BRDF_Corrected_NTL"
     gap_fill_band: "Gap_Filled_DNB_BRDF_Corrected_NTL"
     quality_band: "Mandatory_Quality_Flag"
-    quality_clear_value: 0
+    quality_clear_values: [0, 1]
     composite_method: "median"
 
   dem:

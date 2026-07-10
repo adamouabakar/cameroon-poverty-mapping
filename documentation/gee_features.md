@@ -61,7 +61,7 @@ Activer via `feature_set` dans `configs/gee.yaml` (défaut : **v2**). Le stack a
 | Feature(s) | ID collection / image GEE | Période | Composite / traitement | Reducer buffer |
 |------------|---------------------------|---------|------------------------|----------------|
 | `ndvi_mean`, `ndbi_mean` | `COPERNICUS/S2_SR_HARMONIZED` | 2017-01-01 → 2019-12-31 | Filtre nuages <20 %, masque QA60, médiane, réflectance /10000, indices | **mean** |
-| `night_lights_mean` | `NOAA/VIIRS/001/VNP46A2` | 2018 | Masque `Mandatory_Quality_Flag == 0`, médiane ; bande `DNB_BRDF_Corrected_NTL` | **mean** |
+| `night_lights_mean` | `NASA/VIIRS/002/VNP46A2` | 2018 | Masque `Mandatory_Quality_Flag ∈ {0,1}`, médiane ; bande `Gap_Filled_DNB_BRDF_Corrected_NTL` | **mean** |
 | `elevation_m` | `USGS/SRTMGL1_003` | statique | Bande `elevation` | **mean** |
 | `slope_deg` | `USGS/SRTMGL1_003` | statique | `ee.Terrain.slope` | **mean** |
 | `pop_density` | `WorldPop/GP/100m/pop` | 2018 | `mosaic()` année 2018, `unmask(0)` | **mean** |
@@ -236,7 +236,7 @@ Chaque exécution écrit `logs/gee_run_<timestamp>.json` :
 | Limite | Impact | Atténuation / prochaine action |
 |--------|--------|--------------------------------|
 | **Nuages (Sud)** | NDVI/NDBI parfois masqués | Médiane multi-annuelle ; imputation 0 documentée |
-| **VIIRS NOAA/001 déprécié** | Risque maintenance | Migrer vers `NASA/VIIRS/002/VNP46A2` |
+| **VIIRS NASA/002** | Production (juil. 2026) | `Gap_Filled_DNB_BRDF_Corrected_NTL`, qualité {0,1} |
 | **OSM routes (GRIP4)** | Routes ≠ OSM local fin | Acceptable à 1 km ; v2 possible avec OSM natif |
 | **Santé (Healthsites)** | Couverture inégale en zone rurale | Plafond 50 km ; vérifier par région |
 | **Écoles (HOT)** | Couverture OSM variable, snapshot juin 2026 | Rafraîchir HDX ; envisager upload Asset GEE projet |
@@ -295,7 +295,7 @@ configs/gee.yaml
 | `scripts/extract_gee_features.py --mode clusters` | Relancer sur le nouveau parquet (~300+ grappes) |
 | `configs/default.yaml` | Conserver `features.fake: false` |
 | `src/features/gee/extract_clusters.py` | Réduire l'imputation silencieuse ; loguer les grappes imputées |
-| VIIRS | Migrer vers `NASA/VIIRS/002/VNP46A2` |
+| VIIRS | ✅ `NASA/VIIRS/002/VNP46A2` (gap-filled, qualité {0,1}) |
 | Écoles HOT | Rafraîchir export HDX ; optionnel : upload Asset GEE projet |
 
 ### 2. Gestion du jitter DHS
