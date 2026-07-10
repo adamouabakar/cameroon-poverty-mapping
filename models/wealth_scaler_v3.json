@@ -1,0 +1,6 @@
+{
+  "target": "wealth_index",
+  "method": "zscore",
+  "mean": -47.219876837066025,
+  "std": 84318.05939299706
+}

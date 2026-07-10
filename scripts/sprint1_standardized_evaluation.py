@@ -4,6 +4,7 @@ Sprint 1 — Évaluation avec wealth_index standardisé (z-score).
 
 Produit :
   - data/processed/training/wealth_scaler.json
+  - models/wealth_scaler_v3.json
   - outputs/reports/real_model_results_zscore.json
   - models/wealth_model_lgbm_v0_gee_v3_zscore.pkl
 """
@@ -56,7 +57,9 @@ def main() -> int:
 
     scaler = WealthScaler(mean=0.0, std=1.0).fit(training_df["wealth_index"])
     scaler_path = PROJECT_ROOT / "data/processed/training/wealth_scaler.json"
+    scaler_versioned = PROJECT_ROOT / "models/wealth_scaler_v3.json"
     save_scaler(scaler, scaler_path)
+    save_scaler(scaler, scaler_versioned)
 
     training_df = training_df.copy()
     training_df["wealth_index_z"] = scaler.transform(training_df["wealth_index"])
@@ -103,6 +106,7 @@ def main() -> int:
         "balance_report": balance_report,
         "artifacts": {
             "scaler": str(scaler_path),
+            "scaler_versioned": str(scaler_versioned),
             "model_zscore": str(model_path),
         },
     }
@@ -113,6 +117,7 @@ def main() -> int:
 
     print("✅ Évaluation z-score terminée")
     print(f"  Scaler       : {scaler_path}")
+    print(f"  Scaler (git) : {scaler_versioned}")
     print(f"  Modèle       : {model_path}")
     print(f"  R² (z)       : {metrics_z['r2']:.4f}")
     print(f"  RMSE (z)     : {metrics_z['rmse']:.4f} σ")
