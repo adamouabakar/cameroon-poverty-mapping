@@ -33,6 +33,7 @@ def main() -> int:
         ("run_national_inference.py", "--mode", "raster",
          "--features", "data/processed/rasters/cm_features_1km_v3.tif"),
         ("run_prioritization_maps.py",),
+        ("run_national_uncertainty.py",),
     ]
     for step in steps:
         if _run(*step) != 0:
@@ -45,6 +46,7 @@ def main() -> int:
         "mosaic": str(PROJECT_ROOT / "data/processed/rasters/cm_features_1km_v3.tif"),
         "wealth_map": str(PROJECT_ROOT / "outputs/maps/wealth_index_predicted_1km_model.tif"),
         "priority_map": str(PROJECT_ROOT / "outputs/maps/priority_index_1km.tif"),
+        "uncertainty_map": str(PROJECT_ROOT / "outputs/maps/wealth_uncertainty_1km_model.tif"),
     }
     REPORT.parent.mkdir(parents=True, exist_ok=True)
     REPORT.write_text(json.dumps(report, indent=2), encoding="utf-8")

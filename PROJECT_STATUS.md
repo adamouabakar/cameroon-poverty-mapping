@@ -20,8 +20,10 @@ Le pipeline **Phase 1 (cartographie)** est **fonctionnel et validé** sur les **
 | Raster national 1 km | ✅ Sprint 1 | 96/96 tuiles, mosaïque GEE + inférence raster directe |
 | Wealth z-score | ✅ Sprint 1 | RMSE 0.46 σ, modèle `*_zscore.pkl` |
 | Phase 2 priorisation | ✅ Sprint 2 | Indice composite pauvreté + accessibilité OSM |
+| VIIRS NASA/002 | ✅ | Ré-export 96/96 tuiles + modèle R² 0.787 |
+| Incertitude raster | ✅ | `wealth_uncertainty_1km_model.tif` (grille modèle) |
 | Documentation | ✅ | README, REPRODUCIBILITY, limitations |
-| Tests automatisés | ✅ | 56 passed (`make test`) |
+| Tests automatisés | ✅ | 61 passed (`make test`) |
 | Automatisation | ✅ | `run_pipeline.py`, `regenerate_maps.py`, `Makefile` |
 | Publication GitHub | ✅ Prêt | `adamouabakar/cameroon-poverty-mapping` ; données DHS locales requises |
 
@@ -31,8 +33,8 @@ Le pipeline **Phase 1 (cartographie)** est **fonctionnel et validé** sur les **
 
 ```
 Grappes     : 430
-R² OOF      : 0.776
-Spearman    : 0.875
+R² OOF      : 0.787
+Spearman    : 0.882
 CV          : block
 Feature set : v3 (GHSL + CHIRPS)
 ```
@@ -52,6 +54,8 @@ Feature set : v3 (GHSL + CHIRPS)
 | `outputs/reports/national_coverage_final.json` | Rapport couverture nationale 100 % |
 | `outputs/maps/priority_index_1km.tif` | Carte priorisation composite (Phase 2) |
 | `outputs/reports/prioritization_results.json` | Top grappes + métadonnées priorisation |
+| `outputs/reports/viirs_reexport_final.json` | Ré-export VIIRS NASA/002 complet |
+| `outputs/maps/wealth_uncertainty_1km_model.tif` | Incertitude OOF sur grille raster |
 
 ---
 
@@ -98,6 +102,7 @@ Feature set : v3 (GHSL + CHIRPS)
 | Finalisation | Juil. 2026 | Documentation + publication |
 | Sprint 1 national | Juil. 2026 | 96 tuiles GEE, inférence raster 1 km |
 | Sprint 2 priorisation | Juil. 2026 | Indice composite raster + top grappes |
+| VIIRS NASA/002 | Juil. 2026 | Migration + ré-export 96 tuiles + modèle R² 0.787 |
 
 ---
 
