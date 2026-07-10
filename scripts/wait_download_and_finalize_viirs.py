@@ -54,7 +54,14 @@ def main() -> int:
     poll_s = max(30, args.poll_minutes * 60)
     deadline = time.time() + args.max_hours * 3600
 
-    print("▶ Surveillance téléchargement VIIRS (--force)…", flush=True)
+    if LOCK.exists():
+        print("▶ Surveillance téléchargement VIIRS (--force)…", flush=True)
+    else:
+        refreshed = _refreshed_tiles()
+        if refreshed >= 96:
+            print("✅ Téléchargement déjà terminé — finalisation…", flush=True)
+            return _run("finalize_viirs_reexport.py")
+        print("▶ Lock absent, reprise surveillance…", flush=True)
     while time.time() < deadline:
         refreshed = _refreshed_tiles()
         locked = LOCK.exists()
