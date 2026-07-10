@@ -82,7 +82,10 @@ def main() -> int:
 
         if state == "COMPLETED":
             print("✅ Export GEE terminé — téléchargement national…")
-            code = _run("download_gee_raster_local.py", "--mode", "national", "--tiles")
+            code = _run(
+                "download_gee_raster_local.py",
+                "--mode", "national", "--tiles", "--force",
+            )
             if code != 0:
                 return code
             return _run("finalize_national_coverage.py")
