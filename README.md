@@ -19,8 +19,8 @@
 | Grappes DHS | **430** |
 | Feature set | **v3** (13 variables : GHSL + CHIRPS + base) |
 | CV spatiale | Block (5 folds) |
-| **R² OOF** | **0.776** |
-| **Spearman OOF** | **0.875** |
+| **R² OOF** | **0.787** |
+| **Spearman OOF** | **0.882** |
 | RMSE OOF | 39 939 (échelle hv271 brute) |
 
 ### Features les plus importantes
@@ -36,8 +36,9 @@
 | Carte | Fichier |
 |-------|---------|
 | National (grappes) | `outputs/maps/wealth_national_clusters.png` |
-| National (raster 1 km) | `outputs/maps/wealth_index_predicted_1km.tif` |
-| Incertitude | `outputs/maps/wealth_uncertainty_1km.tif` |
+| National (raster 1 km) | `outputs/maps/wealth_index_predicted_1km_model.tif` |
+| Priorisation (Phase 2) | `outputs/maps/priority_index_1km.tif` |
+| Incertitude | `outputs/maps/wealth_uncertainty_1km_model.tif` |
 | Régionales | `outputs/maps/regional/*.png` |
 
 ![Carte nationale](figures/wealth_national_preview.png)
@@ -132,6 +133,14 @@ cameroon-poverty-mapping/
 | `02_modeling_real_data_executed.ipynb` | Modélisation LightGBM sur 430 grappes réelles (résultats) |
 | `03_gee_feature_extraction.ipynb` | Extraction features GEE v3 |
 | `03_results_visualization.ipynb` | Visualisations et cartes nationales |
+| `04_national_inference_walkthrough.ipynb` | Inférence nationale, priorisation et incertitude (sans GEE) |
+
+Générer / exécuter le Notebook 04 :
+
+```bash
+python scripts/run_notebook_04_pipeline.py --build-only
+python scripts/run_notebook_04_pipeline.py --execute
+```
 
 ---
 
@@ -155,6 +164,8 @@ Détail : [`documentation/gee_features.md`](documentation/gee_features.md)
 | [`documentation/methodology.md`](documentation/methodology.md) | Méthodologie complète |
 | [`documentation/limitations.md`](documentation/limitations.md) | Limites, éthique, usage |
 | [`documentation/final_results_summary.md`](documentation/final_results_summary.md) | Synthèse des résultats |
+| [`documentation/field_validation_protocol.md`](documentation/field_validation_protocol.md) | Protocole validation terrain |
+| [`documentation/transposition_guide.md`](documentation/transposition_guide.md) | Adapter le pipeline à un autre pays DHS |
 | [`PROJECT_STATUS.md`](PROJECT_STATUS.md) | Bilan et feuille de route |
 
 ---

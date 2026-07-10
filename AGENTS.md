@@ -44,9 +44,9 @@ python -m pytest tests/ -q            # Tests
 - `PROJECT_STATUS.md` — Status and roadmap
 - `documentation/` — Methodology, limitations, GEE features
 
-## Priorities (post-VIIRS re-export)
+## Priorities (post-v0.3.0)
 
-1. Notebook 04 national inference + prioritization walkthrough
-2. Field validation with Cameroon partners
-3. CI GitHub Actions (pytest without GEE credentials)
-4. Transposition autre pays DHS (Afrique centrale)
+1. Field validation with Cameroon partners (protocol ready — `documentation/field_validation_protocol.md`)
+2. Publication article / rapport technique bilingue
+3. Interface web légère (cartes Folium hébergées)
+4. Transposition pilote autre pays DHS (guide ready — `documentation/transposition_guide.md`)

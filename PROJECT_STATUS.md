@@ -22,7 +22,8 @@ Le pipeline **Phase 1 (cartographie)** est **fonctionnel et validé** sur les **
 | Phase 2 priorisation | ✅ Sprint 2 | Indice composite pauvreté + accessibilité OSM |
 | VIIRS NASA/002 | ✅ | Ré-export 96/96 tuiles + modèle R² 0.787 |
 | Incertitude raster | ✅ | `wealth_uncertainty_1km_model.tif` (grille modèle) |
-| Documentation | ✅ | README, REPRODUCIBILITY, limitations |
+| Notebook 04 national | ✅ | Inférence raster + priorisation + incertitude |
+| Documentation | ✅ | README, REPRODUCIBILITY, limitations, validation terrain, transposition |
 | Tests automatisés | ✅ | 61 passed (`make test`) |
 | Automatisation | ✅ | `run_pipeline.py`, `regenerate_maps.py`, `Makefile` |
 | Publication GitHub | ✅ Prêt | `adamouabakar/cameroon-poverty-mapping` ; données DHS locales requises |
@@ -78,13 +79,14 @@ Feature set : v3 (GHSL + CHIRPS)
 ### Moyen terme
 
 - [x] Phase 2 : cartes de priorisation (écoles, santé, routes)
-- [ ] Validation terrain avec partenaires camerounais (INS, universités)
-- [ ] Notebook 04 inférence nationale complète
-- [ ] CI GitHub Actions (pytest sans GEE)
+- [x] Protocole validation terrain (`documentation/field_validation_protocol.md` + template CSV)
+- [ ] Validation terrain avec partenaires camerounais (INS, universités) — en attente terrain
+- [x] Notebook 04 inférence nationale complète
+- [x] CI GitHub Actions (pytest sans GEE — `tests/` isolés, 61 passed)
 
 ### Long terme
 
-- [ ] Transposition autre pays DHS (Afrique centrale)
+- [x] Guide transposition autre pays DHS (`documentation/transposition_guide.md`)
 - [ ] Publication article / rapport technique bilingue
 - [ ] Interface web légère (cartes Folium hébergées)
 
