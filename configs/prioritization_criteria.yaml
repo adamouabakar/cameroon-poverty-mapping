@@ -1,0 +1,35 @@
+# Phase 2 — critères de priorisation spatiale (exploratoire)
+# Combine pauvreté estimée + accessibilité OSM (écoles, santé, routes)
+
+weights:
+  poverty: 0.5
+  dist_school: 0.2
+  dist_health: 0.2
+  dist_road: 0.1
+
+normalization:
+  method: minmax
+  percentile_low: 5
+  percentile_high: 95
+
+components:
+  poverty:
+    invert: true
+    description: "Faible wealth_index → priorité élevée"
+  dist_school:
+    band: dist_school_m
+    scale: 0.001
+    description: "Distance à l'école la plus proche (km)"
+  dist_health:
+    band: dist_health_m
+    scale: 0.001
+    description: "Distance au centre de santé le plus proche (km)"
+  dist_road:
+    band: dist_road_m
+    scale: 0.001
+    description: "Distance à la route la plus proche (km)"
+
+output:
+  priority_raster: outputs/maps/priority_index_1km.tif
+  priority_preview: outputs/maps/priority_index_1km.png
+  report: outputs/reports/prioritization_results.json

@@ -19,9 +19,9 @@ Le pipeline **Phase 1 (cartographie)** est **fonctionnel et validé** sur les **
 | Visualisations + cartes | ✅ | Nationale + 6 régions |
 | Raster national 1 km | ✅ Sprint 1 | 96/96 tuiles, mosaïque GEE + inférence raster directe |
 | Wealth z-score | ✅ Sprint 1 | RMSE 0.46 σ, modèle `*_zscore.pkl` |
-| Phase 2 priorisation | 🔲 Planifié | Code squelette présent |
+| Phase 2 priorisation | ✅ Sprint 2 | Indice composite pauvreté + accessibilité OSM |
 | Documentation | ✅ | README, REPRODUCIBILITY, limitations |
-| Tests automatisés | ✅ | 52 passed (`make test`) |
+| Tests automatisés | ✅ | 56 passed (`make test`) |
 | Automatisation | ✅ | `run_pipeline.py`, `regenerate_maps.py`, `Makefile` |
 | Publication GitHub | ✅ Prêt | `adamouabakar/cameroon-poverty-mapping` ; données DHS locales requises |
 
@@ -50,6 +50,8 @@ Feature set : v3 (GHSL + CHIRPS)
 | `outputs/maps/wealth_index_predicted_1km.tif` | Carte nationale interpolée (legacy RBF) |
 | `outputs/maps/wealth_index_predicted_1km_model.tif` | Carte nationale raster directe (GEE 1 km) |
 | `outputs/reports/national_coverage_final.json` | Rapport couverture nationale 100 % |
+| `outputs/maps/priority_index_1km.tif` | Carte priorisation composite (Phase 2) |
+| `outputs/reports/prioritization_results.json` | Top grappes + métadonnées priorisation |
 
 ---
 
@@ -71,7 +73,7 @@ Feature set : v3 (GHSL + CHIRPS)
 
 ### Moyen terme
 
-- [ ] Phase 2 : cartes de priorisation (écoles, santé, routes)
+- [x] Phase 2 : cartes de priorisation (écoles, santé, routes)
 - [ ] Validation terrain avec partenaires camerounais (INS, universités)
 - [ ] Notebook 04 inférence nationale complète
 - [ ] CI GitHub Actions (pytest sans GEE)
@@ -95,6 +97,7 @@ Feature set : v3 (GHSL + CHIRPS)
 | Modèle réel | Juil. 2026 | R² 0.78 atteint |
 | Finalisation | Juil. 2026 | Documentation + publication |
 | Sprint 1 national | Juil. 2026 | 96 tuiles GEE, inférence raster 1 km |
+| Sprint 2 priorisation | Juil. 2026 | Indice composite raster + top grappes |
 
 ---
 

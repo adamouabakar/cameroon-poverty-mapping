@@ -4,7 +4,7 @@
 
 Open-source, reproducible pipeline to estimate poverty at fine spatial resolution (~1 km) in Cameroon using open data (DHS 2018 + satellite imagery + OSM + WorldPop).
 
-**Current Status (July 2026):** **Phase 1 + Sprint 1 complete** — 430 clusters, GEE v3 features, LightGBM R² OOF ≈ 0.78, **96/96 national raster tiles**, direct raster inference at 1 km. Ready for Phase 2 prioritization.
+**Current Status (July 2026):** **Phase 1 + Sprint 1–2 complete** — 430 clusters, GEE v3 features, LightGBM R² OOF ≈ 0.78, national raster inference at 1 km, **prioritization maps** (poverty + OSM accessibility).
 
 ## Tech Stack
 
@@ -25,6 +25,7 @@ Open-source, reproducible pipeline to estimate poverty at fine spatial resolutio
 | Results | `outputs/reports/real_model_results.json` |
 | National features mosaic | `data/processed/rasters/cm_features_1km_v3.tif` |
 | National wealth raster | `outputs/maps/wealth_index_predicted_1km_model.tif` |
+| Priority raster | `outputs/maps/priority_index_1km.tif` |
 | Maps | `outputs/maps/` |
 
 ## Pipeline Entry Points
@@ -42,9 +43,9 @@ python -m pytest tests/ -q            # Tests
 - `PROJECT_STATUS.md` — Status and roadmap
 - `documentation/` — Methodology, limitations, GEE features
 
-## Priorities (post-Sprint 1)
+## Priorities (post-Sprint 2)
 
-1. Phase 2 prioritization maps (schools, health, roads)
-2. VIIRS migration to NASA/VIIRS/002
-3. Field validation with Cameroon partners
-4. Notebook 04 national inference walkthrough
+1. VIIRS migration to NASA/VIIRS/002
+2. Field validation with Cameroon partners
+3. Notebook 04 national inference + prioritization walkthrough
+4. Uncertainty maps on national raster grid
