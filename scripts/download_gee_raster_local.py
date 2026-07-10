@@ -54,7 +54,7 @@ def _fetch_geotiff(url: str, dest: Path, retries: int = 5) -> None:
     last_err = None
     for attempt in range(1, retries + 1):
         try:
-            print(f"   Téléchargement (tentative {attempt}/{retries})…")
+            print(f"   Téléchargement (tentative {attempt}/{retries})…", flush=True)
             urllib.request.urlretrieve(url, dest)
             return
         except Exception as exc:
