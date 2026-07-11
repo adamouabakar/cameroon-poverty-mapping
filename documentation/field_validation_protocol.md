@@ -6,7 +6,17 @@ Modèle exploratoire pour partenaires locaux (INS, universités, ONG).
 
 Comparer les **cartes estimées** (wealth raster 1 km, priorisation) à des **observations de terrain** ou enquêtes administratives, sans prétendre à une validation statistique exhaustive.
 
-## Zones test recommandées (5–10 sites)
+## MVP (issue #1)
+
+Minimum pour fermer le premier dialogue :
+
+1. Un partenaire nommé + un atelier 45–90 min  
+2. CSV ≥5 sites (`partner_pack/field_data/sites.csv`)  
+3. Note d’écarts générée / complétée  
+
+Checklist : `partner_pack/workshop_checklist_fr.md`.
+
+## Zones test recommandées (5–10 sites — au-delà du MVP)
 
 | Critère | Exemple |
 |---------|---------|
@@ -32,16 +42,30 @@ Comparer les **cartes estimées** (wealth raster 1 km, priorisation) à des **ob
 
 ## Livrables partenaires
 
-- Fiche site (formulaire CSV : `documentation/templates/field_validation_site.csv`)
+- Fiche site CSV : `partner_pack/field_validation_template.csv` → `partner_pack/field_data/sites.csv`
+- Checklist atelier : `partner_pack/workshop_checklist_fr.md`
 - Photos géotaggées (optionnel)
-- Rapport synthèse : `outputs/reports/field_validation_YYYY.json`
+- Rapport :
+
+```bash
+python scripts/run_field_validation_report.py \
+  --csv partner_pack/field_data/sites.csv \
+  --partner "ORG / personne" \
+  --workshop-date YYYY-MM-DD \
+  --workshop-minutes 60 \
+  --region "…"
+```
+
+Sorties : `outputs/reports/field_validation_YYYY-MM-DD.md` (+ `.json`).
 
 ## Contact données
 
-Les cartes nationales sont dans `outputs/maps/` :
+Rasters (souvent locaux, non git) :
 
-- `wealth_index_predicted_1km_model.tif`
+- `wealth_index_predicted_1km_model_z.tif` (préféré) ou `…_model.tif`
 - `priority_index_1km.tif`
 - `wealth_uncertainty_1km_model.tif`
+
+Carte web : https://adamouabakar.github.io/cameroon-poverty-mapping/
 
 **Ne pas utiliser pour allocation budgétaire sans validation locale complète.**

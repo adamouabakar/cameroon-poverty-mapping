@@ -1,0 +1,6 @@
+site_id,region,lat,lon,predicted_wealth_bin,uncertainty_bin,local_assessment,notes,observer,date
+demo1,Littoral,4.051,9.708,moyen,moyen,similaire,EXEMPLE fictif — remplacer,demo,2026-01-01
+demo2,Littoral,4.080,9.720,bas,haut,plus pauvre,EXEMPLE fictif,demo,2026-01-01
+demo3,Littoral,4.020,9.690,haut,bas,plus aisé,EXEMPLE fictif,demo,2026-01-01
+demo4,Littoral,4.100,9.750,moyen,moyen,similaire,EXEMPLE fictif,demo,2026-01-01
+demo5,Littoral,4.040,9.680,bas,moyen,plus pauvre,EXEMPLE fictif,demo,2026-01-01

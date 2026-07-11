@@ -122,6 +122,18 @@ python scripts/build_partner_web.py --fixtures
 | `partner_pack/` | Brief FR + [EN one-pager](partner_pack/brief_en.md), deep-dives, CSV terrain, email type |
 | `partner_pack/brief_en.md` | English summary for donors / bilingual peers (from claims + metrics) |
 | `partner_pack/offline_bundle.zip` | Site + pack hors ligne |
+| `partner_pack/workshop_checklist_fr.md` | Atelier validation terrain MVP |
+| `partner_pack/field_data/` | CSV sites + templates terrain |
+
+```bash
+# Après atelier : valider CSV (≥5 sites) + note d'écarts
+python scripts/run_field_validation_report.py \
+  --csv partner_pack/field_data/sites.csv \
+  --partner "ORG / personne" \
+  --workshop-date YYYY-MM-DD \
+  --workshop-minutes 60 \
+  --region "Littoral"
+```
 
 **Deploy Pages :** en mode *branch*, GitHub n’offre que `/` ou `/docs` (pas `/site`). Ce repo publie `site/` via **GitHub Actions** (`.github/workflows/pages.yml`).
 
