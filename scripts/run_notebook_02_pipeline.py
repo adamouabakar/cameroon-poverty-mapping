@@ -62,6 +62,16 @@ FEATURE_COLUMNS_BY_SET = {
         "ins_poverty_rate_pct", "ins_literacy_rate_15plus_pct",
         "ins_electricity_access_pct", "ins_primary_enrollment_pct",
     ],
+    "v5": [
+        "night_lights_mean", "ndvi_mean", "ndbi_mean",
+        "dist_road_km", "dist_school_km", "dist_health_km",
+        "pop_density", "elevation_m", "slope_deg", "ghsl_built_fraction",
+        "precip_annual_mm", "precip_wet_season_mm", "precip_cv",
+        "ins_poverty_rate_pct", "ins_literacy_rate_15plus_pct",
+        "ins_electricity_access_pct", "ins_primary_enrollment_pct",
+        "ndvi_night_interaction", "built_pop_interaction",
+        "accessibility_index", "climate_stress_index",
+    ],
 }
 
 INS_FEATURE_COLS = [
@@ -74,6 +84,7 @@ GEE_PARQUET_BY_SET = {
     "v2": "data/processed/features/cluster_features_gee.parquet",
     "v3": "data/processed/features/cluster_features_gee_v3.parquet",
     "v4": "data/processed/features/cluster_features_gee_ins_v4.parquet",
+    "v5": "data/processed/features/cluster_features_v5.parquet",
 }
 
 
