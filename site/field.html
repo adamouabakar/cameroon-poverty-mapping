@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <title>Mode terrain — validation</title>
+  <style>
+    body { font-family: system-ui; margin: 0; padding: 1rem; background: #f4f4f4; }
+    h1 { font-size: 1.2rem; }
+    .card { background: #fff; border-radius: 8px; padding: 1rem; margin: 0.75rem 0; box-shadow: 0 1px 4px rgba(0,0,0,.08); }
+    label { display: block; margin: 0.5rem 0 0.2rem; font-weight: 600; font-size: 0.9rem; }
+    input, select, textarea { width: 100%; padding: 0.6rem; font-size: 1rem; border: 1px solid #ccc; border-radius: 6px; }
+    button { width: 100%; padding: 0.75rem; margin-top: 1rem; background: #1a5; color: #fff; border: none; border-radius: 6px; font-size: 1rem; }
+    .warn { font-size: 0.8rem; color: #633; background: #fee; padding: 0.5rem; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <h1>Mode terrain — validation locale</h1>
+  <p class="warn">Protocole exploratoire. Ne pas géolocaliser des ménages nominativement.</p>
+  <form class="card" id="field-form">
+    <label>Région</label>
+    <select name="region" required>
+      <option>Extrême-Nord</option><option>Nord</option><option>Adamaoua</option>
+      <option>Centre</option><option>Littoral</option><option>Ouest</option>
+    </select>
+    <label>Site / commune (approx.)</label>
+    <input name="site" placeholder="ex. Maroua rural" required/>
+    <label>Wealth perçu (1=pauvre, 5=riche)</label>
+    <input type="number" name="wealth_score" min="1" max="5" required/>
+    <label>Commentaire</label>
+    <textarea name="notes" rows="3" placeholder="Accès eau, école, routes…"></textarea>
+    <button type="submit">Enregistrer (local)</button>
+  </form>
+  <div class="card" id="export"></div>
+  <script>
+    const KEY = 'cm_field_notes';
+    document.getElementById('field-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const fd = new FormData(e.target);
+      const row = Object.fromEntries(fd.entries());
+      row.ts = new Date().toISOString();
+      const arr = JSON.parse(localStorage.getItem(KEY) || '[]');
+      arr.push(row);
+      localStorage.setItem(KEY, JSON.stringify(arr));
+      document.getElementById('export').innerHTML = '<p>✅ ' + arr.length + ' observation(s) en localStorage. Exporter via outils développeur.</p>';
+      e.target.reset();
+    });
+  </script>
+</body>
+</html>
