@@ -39,8 +39,12 @@ model:
 features:
   fake: false
   source: "gee"       # "fake" | "gee"
-  feature_set: "v3"   # "v1" (WorldCover) | "v2" (GHSL) | "v3" (GHSL+CHIRPS)
-  gee_parquet: "data/processed/features/cluster_features_gee_real.parquet"
+  feature_set: "v4"   # production modeling: v4 (GEE v3 + INS ECAM 4)
+  gee_parquet: "data/processed/features/cluster_features_gee_ins_v4.parquet"
+  final_features_v4: "data/processed/final_features_v4.parquet"
+  # Legacy v3 (sans INS) — pour comparaison / raster production actuel
+  v3_feature_set: "v3"
+  v3_gee_parquet: "data/processed/features/cluster_features_gee_real.parquet"
   columns:
     - night_lights_mean
     - ndvi_mean
@@ -55,6 +59,10 @@ features:
     - precip_annual_mm
     - precip_wet_season_mm
     - precip_cv
+    - ins_poverty_rate_pct
+    - ins_literacy_rate_15plus_pct
+    - ins_electricity_access_pct
+    - ins_primary_enrollment_pct
 
   # Feature set v4 = v3 + indicateurs INS régionaux (ECAM 4, jointure par region)
   v4_columns:
