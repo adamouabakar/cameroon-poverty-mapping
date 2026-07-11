@@ -181,22 +181,119 @@ def plot_raster_preview(
     *,
     title: str,
     cmap: str = "RdYlBu_r",
+    colorbar_label: str = "Wealth index (hv271)",
+    vmin: float | None = None,
+    vmax: float | None = None,
+    add_cities: bool = True,
+    add_scale: bool = True,
+    xlim: tuple[float, float] | None = None,
+    ylim: tuple[float, float] | None = None,
 ) -> None:
-    """Aperçu PNG d'un GeoTIFF."""
+    """Aperçu PNG géoréférencé d'un GeoTIFF (légende, échelle approximative)."""
     import rasterio
+    from rasterio.warp import transform_bounds
 
     with rasterio.open(raster_path) as src:
         data = src.read(1)
         nodata = src.nodata
         if nodata is not None:
             data = np.ma.masked_equal(data, nodata)
+        bounds = transform_bounds(src.crs, _WGS84, *src.bounds)
+        extent = (bounds[0], bounds[2], bounds[1], bounds[3])
+
+    if vmin is None or vmax is None:
+        valid = data.compressed() if np.ma.isMaskedArray(data) else data[np.isfinite(data)]
+        if len(valid):
+            vmin = vmin if vmin is not None else float(np.percentile(valid, 2))
+            vmax = vmax if vmax is not None else float(np.percentile(valid, 98))
 
     fig, ax = plt.subplots(figsize=(10, 11))
-    im = ax.imshow(data, cmap=cmap, origin="upper")
-    plt.colorbar(im, ax=ax, shrink=0.6, label="Valeur")
-    ax.set_title(title)
-    ax.set_xticks([])
-    ax.set_yticks([])
+    im = ax.imshow(
+        data,
+        cmap=cmap,
+        origin="upper",
+        extent=extent,
+        vmin=vmin,
+        vmax=vmax,
+    )
+    cbar = plt.colorbar(im, ax=ax, shrink=0.55, pad=0.02)
+    cbar.set_label(colorbar_label)
+    ax.set_xlim(xlim if xlim else (8.3, 16.5))
+    ax.set_ylim(ylim if ylim else (1.5, 13.2))
+    ax.set_xlabel("Longitude (°)")
+    ax.set_ylabel("Latitude (°)")
+    ax.set_title(title, fontsize=12)
+    ax.set_aspect("equal")
+
+    if add_cities:
+        for name, (lon, lat) in _MAJOR_CITIES.items():
+            ax.plot(lon, lat, "k^", ms=5, zorder=5)
+            ax.annotate(
+                name, (lon, lat), fontsize=7, ha="left",
+                xytext=(3, 3), textcoords="offset points", zorder=5,
+            )
+
+    if add_scale:
+        scale_km = 200
+        scale_deg = scale_km / 111.0
+        x0, y0 = 9.0, 2.2
+        ax.plot([x0, x0 + scale_deg], [y0, y0], "k-", lw=2)
+        ax.text(x0 + scale_deg / 2, y0 + 0.15, f"{scale_km} km", ha="center", fontsize=8)
+
     fig.tight_layout()
-    fig.savefig(out_path, dpi=150)
+    fig.savefig(out_path, dpi=150, bbox_inches="tight")
     plt.close(fig)
+
+
+def plot_regional_raster_maps(
+    raster_path: Path,
+    clusters_gdf: gpd.GeoDataFrame,
+    regions: list[str],
+    out_dir: Path,
+    *,
+    title_template: str = "{region} — wealth index estimé (v4, 1 km)",
+    cmap: str = "RdYlBu_r",
+    colorbar_label: str = "Wealth index (hv271)",
+) -> list[Path]:
+    """Cartes raster zoomées par région DHS (étendue des grappes + marge)."""
+    import rasterio
+
+    out_dir.mkdir(parents=True, exist_ok=True)
+    paths: list[Path] = []
+
+    with rasterio.open(raster_path) as src:
+        data_all = src.read(1)
+        nodata = src.nodata if src.nodata is not None else -9999.0
+        valid = data_all[data_all != nodata]
+        vmin = float(np.percentile(valid, 2)) if len(valid) else None
+        vmax = float(np.percentile(valid, 98)) if len(valid) else None
+
+        for region in regions:
+            sub = clusters_gdf[clusters_gdf["region"] == region]
+            if sub.empty:
+                continue
+            sub_wgs = sub.to_crs(_WGS84)
+            minx, miny, maxx, maxy = sub_wgs.total_bounds
+            margin = 0.4
+            minx -= margin
+            miny -= margin
+            maxx += margin
+            maxy += margin
+
+            safe = region.replace(" ", "_").replace("é", "e").replace("ô", "o").replace("è", "e")
+            out_path = out_dir / f"regional_{safe}_raster_v4.png"
+            plot_raster_preview(
+                raster_path,
+                out_path,
+                title=title_template.format(region=region),
+                cmap=cmap,
+                colorbar_label=colorbar_label,
+                vmin=vmin,
+                vmax=vmax,
+                xlim=(minx, maxx),
+                ylim=(miny, maxy),
+                add_scale=False,
+            )
+            paths.append(out_path)
+
+    return paths

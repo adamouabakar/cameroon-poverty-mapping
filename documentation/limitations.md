@@ -6,16 +6,32 @@ Les cartes de ce projet sont des **estimations exploratoires** du bien-être éc
 
 ## Résultats observés sur données réelles (DHS 2018, juillet 2026)
 
-Validation sur **430 grappes réelles** avec feature set **v3** (GHSL + CHIRPS) :
+### Modèle v4 (production — GEE v3 + INS ECAM 4)
 
-| Métrique | Valeur | Interprétation |
-|----------|--------|----------------|
-| R² OOF | **0.776** | Bonne variance expliquée au niveau grappe |
-| Spearman OOF | **0.875** | Fort accord sur le rang des grappes |
-| RMSE OOF | 39 939 | Échelle hv271 brute |
-| CV | Block (5 folds) | Séparation spatiale des plis |
+Validation sur **430 grappes réelles**, feature set **v4** (17 variables) :
 
-**Observations :** les tests sur données fictives (wealth simulé) n'étaient pas prédictifs ; GHSL corrèle fortement (r ≈ 0.74) ; CHIRPS (`precip_annual_mm`) est 2ᵉ en importance ; la carte raster 1 km actuelle est une interpolation RBF depuis les grappes.
+| Métrique | v3 | v4 | Interprétation |
+|----------|-----|-----|----------------|
+| R² OOF | 0.787 | **0.793** | Gain modeste avec INS régional |
+| Spearman OOF | 0.882 | **0.889** | Fort accord sur le rang des grappes |
+| RMSE OOF | 38 941 | **38 323** | Échelle hv271 brute |
+| CV | Block | Block | Séparation spatiale des plis |
+
+**Validation externe INS (12 régions, ECAM 4 2014) :**
+
+| Métrique | Valeur |
+|----------|--------|
+| Spearman wealth ↔ pauvreté INS | **−0.84** |
+| Spearman wealth ↔ électricité | **+0.85** |
+
+**Observations v4 :** la luminosité nocturne et l'alphabétisation INS figurent parmi les variables les plus importantes ; les indicateurs INS sont **constants par région** — la carte raster 1 km assigne la région via la grappe DHS la plus proche ; la variabilité fine intra-régionale provient surtout du GEE.
+
+### Limites spécifiques INS (v4)
+
+- **Granularité régionale** : pas de résolution infra-régionale sans limites administratives rasterisées.
+- **Décalage temporel** : ECAM 4 (2014) vs DHS 2018 (~4 ans).
+- **Proxy différent** : wealth index DHS (actifs) ≠ pauvreté monétaire ECAM — comparer surtout les rangs régionaux.
+- **Risque de redondance** : une partie du signal INS est déjà captée par GEE (nuit, routes, population).
 
 ---
 

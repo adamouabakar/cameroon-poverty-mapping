@@ -100,4 +100,7 @@ data/processed/rasters/*.tiff
 notebooks/Untitled.ipynb
 notebooks/.ipynb_checkpoints/
 
+# Local scratch scripts (not part of release)
+scripts/file_post_v1_specs.ps1
+
 # Keep figures/ preview for README (do not ignore figures/)

@@ -12,9 +12,12 @@ import seaborn as sns
 
 CHIRPS_COLS = {"precip_annual_mm", "precip_wet_season_mm", "precip_cv"}
 GHSL_COL = "ghsl_built_fraction"
+INS_PREFIX = "ins_"
 
 
 def _feature_color(feature: str) -> str:
+    if feature.startswith(INS_PREFIX):
+        return "#c0392b"
     if feature in CHIRPS_COLS:
         return "#27ae60"
     if feature == GHSL_COL:
@@ -87,14 +90,14 @@ def plot_feature_importance(
     ax.set_xlabel("Gain LightGBM")
     ax.set_title(title)
     from matplotlib.patches import Patch
-    ax.legend(
-        handles=[
-            Patch(color="#27ae60", label="CHIRPS"),
-            Patch(color="#2980b9", label="GHSL"),
-            Patch(color="#7f8c8d", label="Autres"),
-        ],
-        loc="lower right",
-    )
+    legend_handles = [
+        Patch(color="#27ae60", label="CHIRPS"),
+        Patch(color="#2980b9", label="GHSL"),
+        Patch(color="#7f8c8d", label="GEE / OSM"),
+    ]
+    if any(f.startswith(INS_PREFIX) for f in features):
+        legend_handles.append(Patch(color="#c0392b", label="INS (ECAM 4)"))
+    ax.legend(handles=legend_handles, loc="lower right")
     fig.tight_layout()
     fig.savefig(out_path, dpi=150)
     plt.close(fig)
@@ -132,6 +135,44 @@ def plot_metrics_comparison(
     ax.set_xticklabels(labels)
     ax.axhline(0, color="gray", lw=0.8)
     ax.set_title("Comparaison des performances — fake vs réel, v2 vs v3")
+    ax.legend()
+    fig.tight_layout()
+    fig.savefig(out_path, dpi=150)
+    plt.close(fig)
+
+
+def plot_v3_v4_metrics(
+    v4_results_path: Path,
+    out_path: Path,
+) -> None:
+    """Barres côte à côte v3 vs v4 (R², Spearman)."""
+    data = json.loads(v4_results_path.read_text(encoding="utf-8"))
+    comp = data["comparison_v3_vs_v4"]["metrics"]
+    v3 = comp["v3"]
+    v4 = comp["v4"]
+
+    metrics = ["r2", "spearman"]
+    labels = ["R² OOF", "Spearman OOF"]
+    v3_vals = [v3[k] for k in metrics]
+    v4_vals = [v4[k] for k in metrics]
+
+    x = np.arange(len(metrics))
+    width = 0.35
+    fig, ax = plt.subplots(figsize=(8, 5))
+    ax.bar(x - width / 2, v3_vals, width, label="v3 (GEE)", color="#3498db")
+    ax.bar(x + width / 2, v4_vals, width, label="v4 (GEE + INS)", color="#e74c3c")
+    ax.set_xticks(x)
+    ax.set_xticklabels(labels)
+    ax.set_ylim(0, 1.0)
+    ax.set_title("Comparaison OOF — modèle v3 vs v4")
+    delta = comp["delta_v4_minus_v3"]
+    ax.text(
+        0.02, 0.98,
+        f"Δ R² = {delta['r2']:+.4f}  |  Δ Spearman = {delta['spearman']:+.4f}",
+        transform=ax.transAxes,
+        va="top",
+        fontsize=9,
+    )
     ax.legend()
     fig.tight_layout()
     fig.savefig(out_path, dpi=150)

@@ -7,21 +7,24 @@ authors:
 repository-code: "https://github.com/adamouabakar/cameroon-poverty-mapping"
 url: "https://github.com/adamouabakar/cameroon-poverty-mapping"
 license: MIT
-version: 0.1.0
-date-released: 2026-07-06
+version: 0.4.0
+date-released: 2026-07-11
 keywords:
   - poverty mapping
   - DHS
   - Cameroon
   - Google Earth Engine
   - LightGBM
+  - INS
+  - ECAM
   - remote sensing
   - open data
 abstract: >
   Open-source, reproducible pipeline to estimate DHS wealth index at ~1 km
-  resolution in Cameroon using DHS 2018 clusters, Google Earth Engine features
-  (Sentinel-2, VIIRS, GHSL, CHIRPS, OSM, WorldPop), and spatial cross-validated
-  LightGBM regression.
+  resolution in Cameroon using DHS 2018 clusters (430), Google Earth Engine
+  features (Sentinel-2, VIIRS, GHSL, CHIRPS, OSM, WorldPop), regional INS/ECAM 4
+  indicators, and spatial cross-validated LightGBM regression (v4: R² OOF 0.793,
+  Spearman 0.889; external INS validation Spearman -0.84).
 references:
   - type: article
     title: "Combining satellite imagery and machine learning to predict poverty"
@@ -51,3 +54,9 @@ references:
       - name: "ICF"
     year: 2019
     notes: "DHS Program — microdata require registration at dhsprogram.com"
+  - type: report
+    title: "4e Enquête Camerounaise auprès des Ménages (ECAM 4)"
+    authors:
+      - name: "Institut National de la Statistique du Cameroun"
+    year: 2014
+    notes: "Regional poverty and socio-economic indicators — ins-cameroun.cm"

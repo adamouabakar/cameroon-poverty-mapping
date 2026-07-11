@@ -81,16 +81,31 @@ Les performances sont évaluées avec :
 - Corrélation de Spearman
 - Analyses stratifiées (urbain/rural, régions)
 
-**Résultats OOF sur données réelles (v3, 430 grappes, block CV) :**
+**Résultats OOF sur données réelles (v4, 430 grappes, block CV) :**
 
-| Métrique | Valeur |
-|----------|--------|
-| R² | 0.776 |
-| Spearman | 0.875 |
-| RMSE | 39 939 |
-| MAE | 30 660 |
+| Métrique | v3 | v4 |
+|----------|-----|-----|
+| R² | 0.787 | **0.793** |
+| Spearman | 0.882 | **0.889** |
+| RMSE | 38 941 | **38 323** |
+| MAE | 30 399 | **29 504** |
 
-Rapport détaillé : `outputs/reports/real_model_results.json`
+Rapports : `outputs/reports/model_v4_results.json`, `outputs/reports/real_model_results.json` (v3)
+
+### 4.4 Intégration INS (feature set v4)
+
+Quatre indicateurs régionaux de l'**ECAM 4** (INS, 2014) sont jointes par région DHS :
+
+| Variable | Description |
+|----------|-------------|
+| `ins_poverty_rate_pct` | Taux de pauvreté monétaire régional |
+| `ins_literacy_rate_15plus_pct` | Taux d'alphabétisation (15+) |
+| `ins_electricity_access_pct` | Accès à l'électricité |
+| `ins_primary_enrollment_pct` | Scolarisation primaire |
+
+**Validation externe** (12 régions) : Spearman wealth prédit ↔ pauvreté INS = **−0.84**.
+
+**Limite** : variables constantes par région ; sur la carte raster 1 km, assignation via grappe DHS la plus proche.
 
 ### 4.3 Gestion du jitter
 Outre l’agrégation par buffer, des analyses de sensibilité sont réalisées avec différents rayons de buffer et différentes méthodes de modélisation de l’erreur de localisation.

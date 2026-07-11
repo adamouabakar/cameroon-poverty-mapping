@@ -1,6 +1,9 @@
 # Extraction de features Google Earth Engine
 
-Documentation du pipeline GEE — **validé sur 430 grappes DHS réelles (juillet 2026)**, feature set **v3** (GHSL + CHIRPS).
+Documentation du pipeline GEE — **validé sur 430 grappes DHS réelles (juillet 2026)**.
+
+- Feature set **v3** (production GEE) : GHSL + CHIRPS — 13 bandes raster.
+- Feature set **v4** (modèle) : v3 + 4 indicateurs INS régionaux (ECAM 4) — pas de bandes GEE supplémentaires ; jointure par région DHS à l'entraînement et via grappe la plus proche à l'inférence raster.
 
 ---
 

@@ -1,6 +1,6 @@
 {
-  "timestamp_utc": "2026-07-11T11:47:55.077491+00:00",
-  "git_sha": "3835429",
+  "timestamp_utc": "2026-07-11T11:55:09.754490+00:00",
+  "git_sha": "0e059e9",
   "wealth_path": "outputs/maps/wealth_index_predicted_1km_model_z.tif",
   "wealth_units": "zscore",
   "bounds_wgs84": {
