@@ -122,7 +122,13 @@ python scripts/build_partner_web.py --fixtures
 | `partner_pack/` | Brief FR, deep-dives, CSV terrain, email type |
 | `partner_pack/offline_bundle.zip` | Site + pack hors ligne |
 
-**Deploy Pages :** Settings → Pages → Deploy from branch → folder `/site` (assets relatifs : OK en `file://` et Pages).
+**Deploy Pages :** en mode *branch*, GitHub n’offre que `/` ou `/docs` (pas `/site`). Ce repo publie `site/` via **GitHub Actions** (`.github/workflows/pages.yml`).
+
+1. **Settings → Pages → Build and deployment → Source : GitHub Actions**
+2. Push sur `main` ou **Actions → pages → Run workflow**
+3. URL : `https://<user>.github.io/cameroon-poverty-mapping/`
+
+*(Alternative : copier `site/*` vers `docs/` et choisir folder `/docs`.)*
 
 **Checklist 5 min post-deploy :** 3 couches visibles · bandeau non masquable · maxZoom 11 · mailto contact · pas de CDN Leaflet · croiser incertitude.
 
