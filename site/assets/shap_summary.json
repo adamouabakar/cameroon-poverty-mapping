@@ -1,0 +1,65 @@
+{
+  "timestamp_utc": "2026-07-11T23:35:41.069413+00:00",
+  "model": "wealth_model_lgbm_v0_gee_v4.pkl",
+  "n_samples": 120,
+  "top10_mean_abs_shap": [
+    {
+      "feature": "night_lights_mean",
+      "mean_abs_shap": 52026.6583
+    },
+    {
+      "feature": "precip_annual_mm",
+      "mean_abs_shap": 8889.9682
+    },
+    {
+      "feature": "pop_density",
+      "mean_abs_shap": 7185.4023
+    },
+    {
+      "feature": "dist_road_km",
+      "mean_abs_shap": 6140.4224
+    },
+    {
+      "feature": "precip_wet_season_mm",
+      "mean_abs_shap": 4358.4449
+    },
+    {
+      "feature": "dist_health_km",
+      "mean_abs_shap": 4174.2595
+    },
+    {
+      "feature": "ghsl_built_fraction",
+      "mean_abs_shap": 3922.7832
+    },
+    {
+      "feature": "elevation_m",
+      "mean_abs_shap": 2816.3508
+    },
+    {
+      "feature": "slope_deg",
+      "mean_abs_shap": 2519.8845
+    },
+    {
+      "feature": "ins_literacy_rate_15plus_pct",
+      "mean_abs_shap": 2272.9816
+    }
+  ],
+  "ins_features": [
+    {
+      "feature": "ins_literacy_rate_15plus_pct",
+      "mean_abs_shap": 2272.9816
+    },
+    {
+      "feature": "ins_poverty_rate_pct",
+      "mean_abs_shap": 889.4841
+    },
+    {
+      "feature": "ins_primary_enrollment_pct",
+      "mean_abs_shap": 129.5793
+    },
+    {
+      "feature": "ins_electricity_access_pct",
+      "mean_abs_shap": 0.0
+    }
+  ]
+}

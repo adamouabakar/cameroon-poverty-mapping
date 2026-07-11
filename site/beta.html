@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Beta — Tableau de bord Cameroun</title>
+  <link rel="stylesheet" href="vendor/leaflet/leaflet.css"/>
+  <style>
+    :root { --sidebar: 320px; --banner-bg: #1a1a1a; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: system-ui, sans-serif; display: flex; flex-direction: column; height: 100vh; }
+    #banner { background: var(--banner-bg); color: #f5f5f5; padding: 0.5rem 1rem; font-size: 0.85rem; }
+    .layout { display: flex; flex: 1; min-height: 0; }
+    #sidebar {
+      width: var(--sidebar); max-width: 100%; overflow-y: auto;
+      background: #fafafa; border-right: 1px solid #ddd; padding: 1rem;
+    }
+    #map { flex: 1; min-height: 300px; }
+    #sidebar h2 { font-size: 1rem; margin: 0 0 0.75rem; }
+    #sidebar label { display: block; margin: 0.5rem 0; font-size: 0.9rem; }
+    #sidebar select { width: 100%; padding: 0.4rem; margin-bottom: 0.75rem; }
+    .shap-list { font-size: 0.8rem; list-style: none; padding: 0; }
+    .shap-list li { display: flex; justify-content: space-between; padding: 0.25rem 0; border-bottom: 1px solid #eee; }
+    .metrics { font-size: 0.85rem; color: #444; margin-bottom: 1rem; }
+    @media (max-width: 768px) {
+      .layout { flex-direction: column; }
+      #sidebar { width: 100%; max-height: 40vh; }
+      #map { height: 60vh; }
+    }
+  </style>
+</head>
+<body>
+  <div id="banner" role="note">
+    Beta exploratoire — croiser incertitude · pas de ciblage ménage ·
+    <a href="index.html" style="color:#9cf">version stable</a>
+  </div>
+  <div class="layout">
+    <aside id="sidebar" aria-label="Panneau de contrôle">
+      <h2>Tableau de bord beta</h2>
+      <p class="metrics">v4 · R² 0.793 · Spearman 0.889 · n=430</p>
+      <label for="region-select">Région DHS</label>
+      <select id="region-select" aria-label="Sélecteur région">
+        <option value="all">Tout le Cameroun</option>
+        <option value="Extrême-Nord">Extrême-Nord</option>
+        <option value="Nord">Nord</option>
+        <option value="Adamaoua">Adamaoua</option>
+        <option value="Est">Est</option>
+        <option value="Centre">Centre</option>
+        <option value="Littoral">Littoral</option>
+        <option value="Ouest">Ouest</option>
+        <option value="Sud">Sud</option>
+        <option value="Sud-Ouest">Sud-Ouest</option>
+        <option value="Nord-Ouest">Nord-Ouest</option>
+        <option value="Douala">Douala</option>
+        <option value="Yaoundé">Yaoundé</option>
+      </select>
+      <label>Couche active</label>
+      <label><input type="radio" name="layer" value="wealth" checked/> Richesse estimée</label>
+      <label><input type="radio" name="layer" value="uncertainty"/> Incertitude (toujours croiser)</label>
+      <label><input type="radio" name="layer" value="priority"/> Priorisation</label>
+      <h2>SHAP (importance locale moyenne)</h2>
+      <ul class="shap-list" id="shap-list"><li>Chargement…</li></ul>
+    </aside>
+    <div id="map" role="application" aria-label="Carte interactive"></div>
+  </div>
+  <script src="vendor/leaflet/leaflet.js"></script>
+  <script>
+    const REGION_BOUNDS = {
+      "Extrême-Nord": [[10.0, 13.0], [12.5, 15.5]],
+      "Nord": [[8.5, 13.0], [10.5, 15.0]],
+      "Adamaoua": [[6.5, 12.0], [8.5, 14.5]],
+      "Est": [[2.5, 13.5], [5.5, 16.0]],
+      "Centre": [[3.5, 11.0], [5.5, 12.5]],
+      "Littoral": [[3.5, 9.5], [5.0, 10.5]],
+      "Ouest": [[5.0, 9.5], [6.5, 11.0]],
+      "Sud": [[1.5, 9.5], [3.5, 11.5]],
+      "Sud-Ouest": [[4.0, 8.5], [6.0, 10.0]],
+      "Nord-Ouest": [[5.5, 9.5], [7.0, 11.0]],
+      "Douala": [[4.0, 9.5], [4.3, 9.9]],
+      "Yaoundé": [[3.7, 11.3], [4.0, 11.7]],
+    };
+    const BOUNDS = {"west": 8.33, "south": 1.64, "east": 16.23, "north": 13.17};
+    const corner1 = L.latLng(BOUNDS.south, BOUNDS.west);
+    const corner2 = L.latLng(BOUNDS.north, BOUNDS.east);
+    const nationalBounds = L.latLngBounds(corner1, corner2);
+    const map = L.map('map', { maxZoom: 11, minZoom: 5 }).fitBounds(nationalBounds);
+    if (navigator.onLine) {
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 11, opacity: 0.4 }).addTo(map);
+    }
+    const layers = {
+      wealth: L.imageOverlay('assets/wealth.png', nationalBounds, { opacity: 0.85 }),
+      priority: L.imageOverlay('assets/priority.png', nationalBounds, { opacity: 0.85 }),
+      uncertainty: L.imageOverlay('assets/uncertainty.png', nationalBounds, { opacity: 0.85 }),
+    };
+    let current = layers.wealth;
+    current.addTo(map);
+    document.querySelectorAll('input[name=layer]').forEach(el => {
+      el.addEventListener('change', () => {
+        if (!el.checked) return;
+        map.removeLayer(current);
+        current = layers[el.value];
+        current.addTo(map);
+      });
+    });
+    document.getElementById('region-select').addEventListener('change', (e) => {
+      const r = e.target.value;
+      if (r === 'all') map.fitBounds(nationalBounds);
+      else if (REGION_BOUNDS[r]) map.fitBounds(REGION_BOUNDS[r]);
+    });
+    const SHAP_FALLBACK = [
+      ["night_lights_mean", 18420], ["ins_literacy_rate_15plus_pct", 15200],
+      ["precip_annual_mm", 12100], ["pop_density", 9800], ["ghsl_built_fraction", 7600],
+      ["ins_poverty_rate_pct", 5400], ["dist_road_km", 4200],
+    ];
+    function renderShap(items) {
+      const ul = document.getElementById('shap-list');
+      ul.innerHTML = '';
+      items.forEach((row) => {
+        const f = row.feature || row[0];
+        const v = row.mean_abs_shap || row[1];
+        const li = document.createElement('li');
+        li.innerHTML = `<span>${f}</span><span>${Number(v).toLocaleString()}</span>`;
+        ul.appendChild(li);
+      });
+    }
+    fetch('assets/shap_summary.json')
+      .then(r => r.json())
+      .then(d => renderShap(d.top10_mean_abs_shap || d.top_features || SHAP_FALLBACK.map(([f,v])=>({feature:f,mean_abs_shap:v}))))
+      .catch(() => renderShap(SHAP_FALLBACK.map(([f,v])=>({feature:f,mean_abs_shap:v}))));
+  </script>
+</body>
+</html>
