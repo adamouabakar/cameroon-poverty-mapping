@@ -175,3 +175,13 @@ gee:
         precip_annual_mm: "precip_annual"
         precip_wet_season_mm: "precip_wet"
         precip_cv: "precip_cv"
+    # v4 = v3 GEE + indicateurs INS régionaux (jointure grappe, pas bandes GEE)
+    v4:
+      extends: v3
+      ins_context_columns:
+        - ins_poverty_rate_pct
+        - ins_literacy_rate_15plus_pct
+        - ins_electricity_access_pct
+        - ins_primary_enrollment_pct
+      ins_source: "ECAM 4 (INS, 2014)"
+      parquet: "data/processed/features/cluster_features_gee_ins_v4.parquet"

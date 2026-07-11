@@ -1,0 +1,13 @@
+region_ins,region_dhs,poverty_rate_pct,literacy_rate_15plus_pct,electricity_access_pct,primary_enrollment_pct,region_ecam_proxy,source_survey,source_year,notes
+Adamaoua,Adamaoua,50.6,55.8,22.1,82.4,,ECAM4,2014,INS — taux pauvreté monétaire régional
+Centre,Centre,17.8,78.5,68.5,88.2,,ECAM4,2014,INS
+Est,Est,44.8,58.4,28.4,84.1,,ECAM4,2014,INS
+Extrême-Nord,Extrême-Nord,74.3,30.5,12.3,76.8,,ECAM4,2014,INS
+Littoral,Littoral,17.7,77.2,72.1,89.5,,ECAM4,2014,INS
+Nord,Nord,56.7,41.2,18.5,79.3,,ECAM4,2014,INS
+Nord-Ouest,Nord-Ouest,56.2,75.3,35.2,86.7,,ECAM4,2014,INS
+Ouest,Ouest,20.5,82.1,45.3,90.1,,ECAM4,2014,INS
+Sud,Sud,25.1,70.1,38.7,87.3,,ECAM4,2014,INS
+Sud-Ouest,Sud-Ouest,25.6,72.6,42.5,88.0,,ECAM4,2014,INS
+Centre,Yaoundé,17.8,78.5,68.5,88.2,Centre,ECAM4,2014,Proxy DHS → ECAM Centre (agg. urbaine)
+Littoral,Douala,17.7,77.2,72.1,89.5,Littoral,ECAM4,2014,Proxy DHS → ECAM Littoral (agg. urbaine)
