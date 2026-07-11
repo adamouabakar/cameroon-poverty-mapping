@@ -1,0 +1,19 @@
+project: cameroon-poverty-mapping
+version: "1.0.0"
+current_phase: "Release v1.0"
+current_jalon: 5
+
+paths:
+  raw_dhs: "data/raw/dhs"
+  processed: "data/processed"
+  outputs: "outputs"
+  maps: "outputs/maps"
+  reports: "outputs/reports"
+  notebooks: "notebooks"
+
+agents:
+  base_path: "src/agents/jalons"
+
+github:
+  repo: "adamouabakar/cameroon-poverty-mapping"
+  branch: "main"

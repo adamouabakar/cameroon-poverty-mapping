@@ -1,6 +1,6 @@
 {
-  "timestamp_utc": "2026-07-11T11:55:09.754490+00:00",
-  "git_sha": "0e059e9",
+  "timestamp_utc": "2026-07-11T23:36:49.305033+00:00",
+  "git_sha": "8b8262e",
   "wealth_path": "outputs/maps/wealth_index_predicted_1km_model_z.tif",
   "wealth_units": "zscore",
   "bounds_wgs84": {
@@ -23,7 +23,7 @@
       858
     ]
   },
-  "assets_mb": 1.733,
+  "assets_mb": 1.734,
   "deep_dive_regions": [
     "Littoral",
     "Extreme-Nord"

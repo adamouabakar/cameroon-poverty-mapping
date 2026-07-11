@@ -1,6 +1,6 @@
 project:
   name: "cameroon-poverty-mapping"
-  version: "0.4.0"   # Release juillet 2026 — DHS réel + GEE v3 + INS v4
+  version: "1.0.0"   # Release juillet 2026 — jalons 1-5 complets
   resolution: 1000
   country: "CM"
   dhs_year: 2018
