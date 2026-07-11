@@ -11,6 +11,18 @@ Voir aussi la copie locale optionnelle : `data/raw/ins/` (gitignored).
 | Année de référence | **2014** |
 | Site | https://ins-cameroun.cm/ |
 
+## PDF officiel (téléchargement local)
+
+| Champ | Valeur |
+|-------|--------|
+| Titre | *Pauvreté et évolution du pouvoir d'achat des ménages — ECAM4* |
+| URL | https://ins-cameroun.cm/wp-content/uploads/2025/06/Pauvrete_et_evolution_du_pouvoir_d_achat_des_menages_ECAM4.pdf |
+| Chemin local | `data/raw/ins/ecam4_poverty_ins_2025.pdf` (gitignored) |
+
+```bash
+curl.exe -L -o data/raw/ins/ecam4_poverty_ins_2025.pdf "https://ins-cameroun.cm/wp-content/uploads/2025/06/Pauvrete_et_evolution_du_pouvoir_d_achat_des_menages_ECAM4.pdf"
+```
+
 ## Notes
 
 - Copie versionnée : `data/reference/ins/ecam4_regional_indicators.csv`
