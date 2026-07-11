@@ -27,6 +27,14 @@ anti_targeting_fr: |
   individus, ni remplacer les statistiques officielles. Toute décision
   opérationnelle exige validation locale et sources institutionnelles.
 
+anti_targeting_en: |
+  Do not use these maps for household, village, or individual targeting,
+  or as a substitute for official national statistics. Operational decisions
+  require local validation and institutional sources.
+
+# Live Pages URL (optional; default used in brief_en if empty)
+map_url: "https://adamouabakar.github.io/cameroon-poverty-mapping/"
+
 metrics_keys:
   r2: metrics_oof.r2
   spearman: metrics_oof.spearman

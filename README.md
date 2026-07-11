@@ -100,7 +100,7 @@ python scripts/regenerate_maps.py              # Alias cartes uniquement
 
 ### Partner web & pack atelier (Dialogue Pack)
 
-Carte nationale statique (Leaflet vendored, 3 couches) + pack FR pour partenaires (brief, deep-dives, zip offline, strip WhatsApp).
+Carte nationale statique (Leaflet vendored, 3 couches) + pack partenaires (brief **FR** + **EN**, deep-dives, zip offline, strip WhatsApp).
 
 Prérequis : rasters locaux dans `outputs/maps/` (voir pipeline) + `configs/claims.yaml` (éditer `contact_email`).
 
@@ -119,7 +119,8 @@ python scripts/build_partner_web.py --fixtures
 |--------|------|
 | `site/index.html` | Carte (ouvrir en local ou GitHub Pages `/site`) |
 | `site/build_manifest.json` | Métadonnées build |
-| `partner_pack/` | Brief FR, deep-dives, CSV terrain, email type |
+| `partner_pack/` | Brief FR + [EN one-pager](partner_pack/brief_en.md), deep-dives, CSV terrain, email type |
+| `partner_pack/brief_en.md` | English summary for donors / bilingual peers (from claims + metrics) |
 | `partner_pack/offline_bundle.zip` | Site + pack hors ligne |
 
 **Deploy Pages :** en mode *branch*, GitHub n’offre que `/` ou `/docs` (pas `/site`). Ce repo publie `site/` via **GitHub Actions** (`.github/workflows/pages.yml`).

@@ -45,6 +45,7 @@ from src.partner_web.pack import (  # noqa: E402
     copy_field_protocol,
     make_offline_zip,
     write_brief,
+    write_brief_en,
     write_csv_template,
     write_deep_dives,
     write_email_template,
@@ -149,6 +150,7 @@ def main() -> int:
         pack_meta: dict = {}
         if not args.skip_pack:
             write_brief(pack_dir, claims, metrics)
+            write_brief_en(pack_dir, claims, metrics)
             write_deep_dives(pack_dir, assets, claims)
             write_email_template(pack_dir, claims)
             write_csv_template(pack_dir)

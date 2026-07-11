@@ -62,6 +62,69 @@ Estimations **exploratoires** de bien-être relatif à ~1 km, calibrées sur l'i
     return path
 
 
+def write_brief_en(pack_dir: Path, claims: dict[str, Any], metrics: dict[str, Any]) -> Path:
+    """English one-pager for donors / bilingual peers (same metrics as FR brief)."""
+    pack_dir.mkdir(parents=True, exist_ok=True)
+    path = pack_dir / "brief_en.md"
+    anti = (claims.get("anti_targeting_en") or "").strip()
+    if not anti:
+        anti = (
+            "Do not use these maps for household, village, or individual targeting, "
+            "or as a substitute for official national statistics. Operational decisions "
+            "require local validation and institutional sources."
+        )
+    banner = (claims.get("banner_en_one_liner") or "").replace("\n", " ").strip()
+    map_url = (claims.get("map_url") or "").strip() or (
+        "https://adamouabakar.github.io/cameroon-poverty-mapping/"
+    )
+    body = f"""# Partner brief — {claims['country']} (DHS {claims['dhs_year']})
+
+## In one sentence
+
+**Exploratory** relative-wellbeing estimates at ~1 km, calibrated on DHS cluster wealth
+and open satellite/geospatial features. **Not** official INS poverty statistics.
+
+{banner}
+
+## Model performance (OOF, spatial CV)
+
+| Metric | Value |
+|--------|-------|
+| R² OOF | {metrics.get('r2')} |
+| Spearman OOF | {metrics.get('spearman')} |
+| RMSE | {metrics.get('rmse')} |
+| Clusters | {metrics.get('n_clusters')} |
+| CV | {metrics.get('cv_strategy')} |
+| Wealth units | {claims.get('wealth_units')} |
+
+Metrics are read at build time from the project results JSON via `configs/claims.yaml`
+(`metrics_keys`). They must match the published model run — not hand-copied.
+
+## How to read the map
+
+1. Start with the **wealth** layer (broad national/regional view only).
+2. **Always** cross-check **uncertainty** (legend stays visible on the web map).
+3. The **prioritization** layer is an exploratory composite (estimated deprivation + OSM
+   accessibility) — **non-operational**, not a village ranking.
+4. Do not interpret at household/village scale (DHS GPS jitter).
+
+## Map link
+
+- Live map: {map_url}
+- Offline: open `site/index.html` from `partner_pack/offline_bundle.zip`
+
+## Contact
+
+{claims['contact_email']} — response time not guaranteed.
+
+## Usage restrictions
+
+{anti}
+"""
+    path.write_text(body, encoding="utf-8")
+    return path
+
+
 def write_deep_dives(
     pack_dir: Path,
     stack_pngs: dict[str, Path],
