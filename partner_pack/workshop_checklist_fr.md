@@ -2,13 +2,17 @@
 
 ## Avant l’atelier
 
-- [ ] `configs/claims.yaml` : `contact_email` réel (pas `example.com`)
+- [ ] `configs/claims.yaml` : `contact_email` réel
 - [ ] Rebuild pack : `python scripts/build_partner_web.py`
-- [ ] Envoyer email (`email_prise_de_contact_fr.md`) + lien carte + `offline_bundle.zip` si bas débit
+- [ ] **Partenaire institutionnel cible :** [INS Cameroun](https://ins-cameroun.cm/) — email type `email_prise_de_contact_ins.md` → infos@ins-cameroun.cm
+- [ ] Ou autre partenaire (uni / expert) via `email_prise_de_contact_fr.md`
+- [ ] Envoyer lien carte + brief FR/EN + `offline_bundle.zip` si bas débit
 - [ ] Partenaire nommé (org + personne) — noter en privé si sensible
 - [ ] Date / heure / durée réservées
 
-**Carte live :** https://adamouabakar.github.io/cameroon-poverty-mapping/
+**INS (stats officielles) :** https://ins-cameroun.cm/  
+**Carte exploratoire (projet) :** https://adamouabakar.github.io/cameroon-poverty-mapping/  
+**Positionnement :** `documentation/partners_ins.md`
 
 ## Agenda suggéré
 

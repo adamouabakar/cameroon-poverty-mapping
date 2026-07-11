@@ -72,6 +72,9 @@ def test_cli_e2e_fixtures(tmp_path: Path):
     assert "0.5" in en  # fixture metrics r2
     assert "targeting" in en.lower() or "household" in en.lower()
     assert "http" in en  # map link placeholder
+    assert "ins-cameroun.cm" in en.lower() or "institut national" in en.lower()
+    fr = (pack / "brief_fr.md").read_text(encoding="utf-8")
+    assert "ins-cameroun.cm" in fr.lower() or "Institut National" in fr
     assert (pack / "offline_bundle.zip").is_file()
     with zipfile.ZipFile(pack / "offline_bundle.zip") as zf:
         names = zf.namelist()

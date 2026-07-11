@@ -28,7 +28,19 @@ Estimations **exploratoires** de bien-être relatif à ~1 km, calibrées sur l'i
 - Discussion sur l'incertitude et les limites.
 - Si pertinent : validation terrain selon `field_validation_protocol.md` (pas de collecte non autorisée).
 
-## Contact
+## Référence institutionnelle (INS)
+
+Les statistiques officielles du Cameroun relèvent de l'**Institut National de la Statistique (INS) du Cameroun** :  
+https://ins-cameroun.cm/  
+(Contact public site : infos@ins-cameroun.cm)
+
+Producteur des statistiques officielles ; référence pour toute décision de politique. Ce projet est exploratoire et ne se substitue pas à l'INS.
+
+Ce projet est un **complément méthodologique exploratoire** (proxy géospatial + DHS).  
+Il ne remplace pas les publications INS (ECAM, annuaires, etc.) et vise un dialogue  
+méthodologique avec les producteurs officiels.
+
+## Contact (mainteneur open source)
 
 abubakradamou@gmail.com — délai de réponse non garanti.
 

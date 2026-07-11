@@ -35,6 +35,13 @@ anti_targeting_en: |
 # Live Pages URL (optional; default used in brief_en if empty)
 map_url: "https://adamouabakar.github.io/cameroon-poverty-mapping/"
 
+# Institutional reference (official statistics) — complement, never replace
+institutional_partner:
+  name: "Institut National de la Statistique (INS) du Cameroun"
+  url: "https://ins-cameroun.cm/"
+  contact_public: "infos@ins-cameroun.cm"
+  role: "Producteur des statistiques officielles ; référence pour toute décision de politique. Ce projet est exploratoire et ne se substitue pas à l'INS."
+
 metrics_keys:
   r2: metrics_oof.r2
   spearman: metrics_oof.spearman

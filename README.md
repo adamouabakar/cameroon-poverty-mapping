@@ -214,6 +214,7 @@ Détail : [`documentation/gee_features.md`](documentation/gee_features.md)
 | [`documentation/limitations.md`](documentation/limitations.md) | Limites, éthique, usage |
 | [`documentation/final_results_summary.md`](documentation/final_results_summary.md) | Synthèse des résultats |
 | [`documentation/field_validation_protocol.md`](documentation/field_validation_protocol.md) | Protocole validation terrain |
+| [`documentation/partners_ins.md`](documentation/partners_ins.md) | Ancrage INS Cameroun ([ins-cameroun.cm](https://ins-cameroun.cm/)) — complément, pas substitution |
 | [`documentation/transposition_guide.md`](documentation/transposition_guide.md) | Adapter le pipeline à un autre pays DHS |
 | [`PROJECT_STATUS.md`](PROJECT_STATUS.md) | Bilan et feuille de route |
 

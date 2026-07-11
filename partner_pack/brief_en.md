@@ -34,7 +34,17 @@ Metrics are read at build time from the project results JSON via `configs/claims
 - Live map: https://adamouabakar.github.io/cameroon-poverty-mapping/
 - Offline: open `site/index.html` from `partner_pack/offline_bundle.zip`
 
-## Contact
+## Institutional reference (INS)
+
+Official statistics in Cameroon are produced by the **Institut National de la Statistique (INS) du Cameroun**:  
+https://ins-cameroun.cm/  
+(Public contact: infos@ins-cameroun.cm)
+
+This open-source project is an **exploratory methodological complement** (geospatial  
+proxy + DHS). It does **not** replace official INS publications (e.g. ECAM) and is  
+intended for methodological dialogue with official producers.
+
+## Contact (open-source maintainer)
 
 abubakradamou@gmail.com — response time not guaranteed.
 

@@ -17,9 +17,23 @@ class PackError(Exception):
         self.code = code
 
 
+def _ins_block(claims: dict[str, Any]) -> dict[str, str]:
+    ip = claims.get("institutional_partner") or {}
+    return {
+        "ins_name": str(ip.get("name") or "Institut National de la Statistique (INS) du Cameroun"),
+        "ins_url": str(ip.get("url") or "https://ins-cameroun.cm/"),
+        "ins_contact": str(ip.get("contact_public") or "infos@ins-cameroun.cm"),
+        "ins_role": str(
+            ip.get("role")
+            or "Producteur des statistiques officielles ; ce projet ne s'y substitue pas."
+        ),
+    }
+
+
 def write_brief(pack_dir: Path, claims: dict[str, Any], metrics: dict[str, Any]) -> Path:
     pack_dir.mkdir(parents=True, exist_ok=True)
     path = pack_dir / "brief_fr.md"
+    ins = _ins_block(claims)
     body = f"""# Brief partenaire — {claims['country']} (DHS {claims['dhs_year']})
 
 ## En une phrase
@@ -50,7 +64,19 @@ Estimations **exploratoires** de bien-être relatif à ~1 km, calibrées sur l'i
 - Discussion sur l'incertitude et les limites.
 - Si pertinent : validation terrain selon `field_validation_protocol.md` (pas de collecte non autorisée).
 
-## Contact
+## Référence institutionnelle (INS)
+
+Les statistiques officielles du Cameroun relèvent de l'**{ins['ins_name']}** :  
+{ins['ins_url']}  
+(Contact public site : {ins['ins_contact']})
+
+{ins['ins_role']}
+
+Ce projet est un **complément méthodologique exploratoire** (proxy géospatial + DHS).  
+Il ne remplace pas les publications INS (ECAM, annuaires, etc.) et vise un dialogue  
+méthodologique avec les producteurs officiels.
+
+## Contact (mainteneur open source)
 
 {claims['contact_email']} — délai de réponse non garanti.
 
@@ -77,6 +103,7 @@ def write_brief_en(pack_dir: Path, claims: dict[str, Any], metrics: dict[str, An
     map_url = (claims.get("map_url") or "").strip() or (
         "https://adamouabakar.github.io/cameroon-poverty-mapping/"
     )
+    ins = _ins_block(claims)
     body = f"""# Partner brief — {claims['country']} (DHS {claims['dhs_year']})
 
 ## In one sentence
@@ -113,7 +140,17 @@ Metrics are read at build time from the project results JSON via `configs/claims
 - Live map: {map_url}
 - Offline: open `site/index.html` from `partner_pack/offline_bundle.zip`
 
-## Contact
+## Institutional reference (INS)
+
+Official statistics in Cameroon are produced by the **{ins['ins_name']}**:  
+{ins['ins_url']}  
+(Public contact: {ins['ins_contact']})
+
+This open-source project is an **exploratory methodological complement** (geospatial  
+proxy + DHS). It does **not** replace official INS publications (e.g. ECAM) and is  
+intended for methodological dialogue with official producers.
+
+## Contact (open-source maintainer)
 
 {claims['contact_email']} — response time not guaranteed.
 
