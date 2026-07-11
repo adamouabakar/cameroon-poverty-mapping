@@ -89,6 +89,9 @@ terminals/
 memory/
 src/agents/
 
+# Local credentials (never commit)
+configs/credentials.local.yaml
+
 # Grok session artifacts
 *.jsonl
 
