@@ -30,7 +30,7 @@ Estimations **exploratoires** de bien-être relatif à ~1 km, calibrées sur l'i
 
 ## Contact
 
-contact@example.com — délai de réponse non garanti.
+abubakradamou@gmail.com — délai de réponse non garanti.
 
 ## Interdits d'usage
 

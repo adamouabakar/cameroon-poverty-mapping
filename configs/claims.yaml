@@ -4,7 +4,7 @@
 version: 1
 country: Cameroun
 dhs_year: 2018
-contact_email: "contact@example.com"  # replace before public share
+contact_email: "abubakradamou@gmail.com"
 
 wealth_units: zscore  # zscore | raw — must match chosen wealth raster
 

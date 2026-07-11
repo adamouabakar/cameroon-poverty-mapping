@@ -36,7 +36,7 @@ Metrics are read at build time from the project results JSON via `configs/claims
 
 ## Contact
 
-contact@example.com — response time not guaranteed.
+abubakradamou@gmail.com — response time not guaranteed.
 
 ## Usage restrictions
 
