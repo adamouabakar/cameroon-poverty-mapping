@@ -12,6 +12,7 @@ from typing import Any, Iterable
 import numpy as np
 import rasterio
 from rasterio.transform import rowcol
+from rasterio.warp import transform as rio_transform
 
 # Allowed vocabulary (normalized lowercase)
 WEALTH_BINS = frozenset({"bas", "moyen", "haut"})
@@ -172,15 +173,22 @@ def value_to_bin(v: float, lo: float, hi: float) -> str:
 
 
 def sample_raster_at(path: Path, coords: list[tuple[float, float]]) -> list[float | None]:
-    """Sample band 1 at lon/lat points. coords are (lon, lat)."""
+    """Sample band 1 at lon/lat points (WGS84). coords are (lon, lat)."""
     if not path.is_file():
         raise FieldValidationError(f"raster missing: {path}")
     out: list[float | None] = []
     with rasterio.open(path) as ds:
+        wgs84 = "EPSG:4326"
+        xs: list[float] = []
+        ys: list[float] = []
         for lon, lat in coords:
+            xs.append(lon)
+            ys.append(lat)
+        if ds.crs and str(ds.crs).upper() not in (wgs84, "EPSG:4326"):
+            xs, ys = rio_transform(wgs84, ds.crs, xs, ys)
+        for x, y in zip(xs, ys):
             try:
-                # rowcol expects x,y in CRS; if geographic CRS, lon/lat work
-                r, c = rowcol(ds.transform, lon, lat)
+                r, c = rowcol(ds.transform, x, y)
                 if r < 0 or c < 0 or r >= ds.height or c >= ds.width:
                     out.append(None)
                     continue

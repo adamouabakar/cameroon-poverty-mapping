@@ -1,0 +1,13 @@
+site_id,region,lat,lon,predicted_wealth_bin,uncertainty_bin,local_assessment,notes,observer,date,dhs_wealth,oof_pred,map_wealth,dhs_bin,map_bin,concordance
+proxy_c371,Adamaoua,7.413100,13.548874,moyen,moyen,plus pauvre,DHS proxy; urban_rural=rural; dhs_bin=moyen; map_bin=haut,post_v1_proxy_dhs2018,2026-07-12,42946.5357,-50564.0397,39866.2227,moyen,haut,mismatch
+proxy_c162,Centre,4.364153,11.266164,moyen,moyen,plus pauvre,DHS proxy; urban_rural=urban; dhs_bin=moyen; map_bin=haut,post_v1_proxy_dhs2018,2026-07-12,8841.4286,-9284.2424,25367.3164,moyen,haut,mismatch
+proxy_c319,Douala,4.053673,9.722840,haut,moyen,similaire,DHS proxy; urban_rural=urban; dhs_bin=haut; map_bin=haut,post_v1_proxy_dhs2018,2026-07-12,151728.3462,110072.7444,102861.4297,haut,haut,match
+proxy_c408,Est,4.576768,13.663668,haut,moyen,similaire,DHS proxy; urban_rural=urban; dhs_bin=haut; map_bin=haut,post_v1_proxy_dhs2018,2026-07-12,63720.5000,58214.7974,60437.1016,haut,haut,match
+proxy_c87,Extrême-Nord,10.773269,14.137739,bas,moyen,plus pauvre,DHS proxy; urban_rural=rural; dhs_bin=bas; map_bin=moyen,post_v1_proxy_dhs2018,2026-07-12,-126150.7143,-101562.3638,-105862.7734,bas,moyen,partial
+proxy_c328,Littoral,4.228225,10.569591,bas,moyen,plus pauvre,DHS proxy; urban_rural=rural; dhs_bin=moyen; map_bin=haut,post_v1_proxy_dhs2018,2026-07-12,-37005.6667,-55368.1065,-44191.3047,moyen,haut,mismatch
+proxy_c317,Nord,8.218562,14.947589,bas,moyen,plus pauvre,DHS proxy; urban_rural=rural; dhs_bin=bas; map_bin=moyen,post_v1_proxy_dhs2018,2026-07-12,-108361.8571,-81065.0118,-95977.5781,bas,moyen,partial
+proxy_c365,Nord-Ouest,6.563271,10.706792,bas,moyen,plus pauvre,DHS proxy; urban_rural=rural; dhs_bin=bas; map_bin=haut,post_v1_proxy_dhs2018,2026-07-12,-77279.2500,-59494.7143,-28155.9707,bas,haut,mismatch
+proxy_c442,Ouest,5.112917,10.429010,moyen,moyen,plus pauvre,DHS proxy; urban_rural=rural; dhs_bin=bas; map_bin=haut,post_v1_proxy_dhs2018,2026-07-12,-41342.7500,-47408.4796,-39152.7070,bas,haut,mismatch
+proxy_c19,Sud,2.848274,9.985541,moyen,moyen,plus pauvre,DHS proxy; urban_rural=rural; dhs_bin=moyen; map_bin=haut,post_v1_proxy_dhs2018,2026-07-12,47204.6071,-24784.6471,38912.5273,moyen,haut,mismatch
+proxy_c60,Sud-Ouest,4.030813,9.200917,haut,moyen,similaire,DHS proxy; urban_rural=urban; dhs_bin=haut; map_bin=haut,post_v1_proxy_dhs2018,2026-07-12,66022.5185,59686.4540,91328.5078,haut,haut,match
+proxy_c214,Yaoundé,3.892234,11.493676,haut,moyen,similaire,DHS proxy; urban_rural=urban; dhs_bin=haut; map_bin=haut,post_v1_proxy_dhs2018,2026-07-12,84884.3214,114077.3860,76635.8359,haut,haut,match

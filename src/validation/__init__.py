@@ -1,0 +1,1 @@
+"""Validation utilities (field proxy, external checks)."""
