@@ -1,0 +1,13 @@
+region_ins,region_dhs,poverty_rate_pct,literacy_rate_15plus_pct,electricity_access_pct,primary_enrollment_pct,region_ecam_proxy,source_survey,source_year,poverty_source,notes
+Adamaoua,Adamaoua,52.2,63.2,22.8,85.0,,ECAM5,2022,scaled_ecam4,ECAM4×ratio national ECAM5/ECAM4; pauvreté régionale non publiée INS
+Centre,Centre,18.4,88.9,69.6,91.0,,ECAM5,2022,scaled_ecam4,Indicateurs non-pauvreté scalés depuis ECAM4; pauvreté <30.8% (INS)
+Est,Est,46.2,66.1,29.3,86.7,,ECAM5,2022,scaled_ecam4,Au-dessus moyenne nationale (INS communiqué avril 2024)
+Extrême-Nord,Extrême-Nord,69.2,34.5,12.6,77.6,,ECAM5,2022,ins_published,INS ECAM5 — presse/rapport (69.2%)
+Littoral,Littoral,18.2,87.4,73.2,92.5,,ECAM5,2022,scaled_ecam4,Région hors Douala-ville; pauvreté <30.8% (INS)
+Nord,Nord,61.1,46.7,19.1,80.0,,ECAM5,2022,ins_published,INS ECAM5 — presse/rapport (61.1%)
+Nord-Ouest,Nord-Ouest,66.8,85.2,39.9,90.2,,ECAM5,2022,ins_published,INS ECAM5 — données partielles (crise); 66.8%
+Ouest,Ouest,21.1,93.0,51.3,92.1,,ECAM5,2022,scaled_ecam4,Scalé ECAM4
+Sud,Sud,25.9,79.4,43.8,89.1,,ECAM5,2022,scaled_ecam4,Pauvreté <30.8% (INS)
+Sud-Ouest,Sud-Ouest,26.4,82.2,48.1,89.8,,ECAM5,2022,scaled_ecam4,Données régionales non représentatives (INS note sécurité)
+Centre,Yaoundé,10.8,88.9,69.6,91.0,Centre,ECAM5,2022,ins_published,INS ECAM5 dépliant — ville Yaoundé (10.8%)
+Littoral,Douala,8.3,87.4,73.2,92.5,Littoral,ECAM5,2022,ins_published,INS ECAM5 dépliant — ville Douala (8.3%)
