@@ -14,7 +14,9 @@ Pipeline open-source reproductible pour estimer le bien-être économique au Cam
 | 2 | Interface beta | `jalon2_interface.md` | Carte SHAP, incertitude, sélecteur admin | 🔄 |
 | 3 | Features avancées | `jalon3_features.md` | Feature set v5, comparaison v4/v5 | ⏳ |
 | 4 | Outils décisionnels | `jalon4_fonctionnalites.md` | PDF, mode terrain, simulateur | ⏳ |
-| 5 | Déploiement | `jalon5_deploiement.md` | Release v1.0, site public, communication | ⏳ |
+| 5 | Déploiement | `jalon5_deploiement.md` | Release v1.0, site public, communication | ✅ |
+| 6 | Modèle temporel | `jalon6_modele_temporel.md` | Panel 2014–2022, animation, `site/temporal.html` | ✅ |
+| 7 | Plateforme finale | `jalon7_plateforme_finale.md` | Release v2.0, doc complète, communication | ✅ |
 
 ## Phases techniques (réalisées)
 
