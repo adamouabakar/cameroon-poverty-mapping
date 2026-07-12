@@ -1,0 +1,31 @@
+# Post-v1 Action 4 — priorisation orientée action (accessibilité renforcée)
+
+weights:
+  poverty: 0.45
+  dist_school: 0.2
+  dist_health: 0.2
+  dist_road: 0.15
+
+normalization:
+  method: minmax
+  percentile_low: 5
+  percentile_high: 95
+
+components:
+  poverty:
+    invert: true
+    description: "Faible wealth_index → priorité élevée"
+  dist_school:
+    band: dist_school_m
+    scale: 0.001
+  dist_health:
+    band: dist_health_m
+    scale: 0.001
+  dist_road:
+    band: dist_road_m
+    scale: 0.001
+
+output:
+  priority_raster: outputs/maps/priority_index_1km_actionable.tif
+  priority_preview: outputs/maps/priority_index_1km_actionable.png
+  report: outputs/reports/prioritization_actionable_results.json
