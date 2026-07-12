@@ -1,6 +1,6 @@
 # État du projet — Cameroon Poverty Mapping
 
-*Dernière mise à jour : juillet 2026 — v0.4.0 (pipeline v4 + INS)*
+*Dernière mise à jour : juillet 2026 — **v2.0.0** (v5_post + ECAM5 + temporel)*
 
 ---
 
@@ -33,8 +33,8 @@ Le pipeline est **fonctionnel, documenté et prêt pour publication GitHub** sur
 
 ```
 Grappes     : 430
-R² OOF      : 0.793  (v3 : 0.787)
-Spearman    : 0.889  (v3 : 0.882)
+R² OOF      : 0.808  (v3 : 0.787)
+Spearman    : 0.899  (v3 : 0.882)
 RMSE OOF    : 38 323
 CV          : block
 Feature set : v4 (GEE v3 + INS ECAM 4)

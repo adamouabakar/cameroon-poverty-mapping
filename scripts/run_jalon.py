@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 """
-Orchestrateur des 5 jalons — Cameroon Poverty Mapping.
+Orchestrateur des jalons — Cameroon Poverty Mapping.
 
 Usage :
   python scripts/run_jalon.py --jalon 1
   python scripts/run_jalon.py --jalon all
+  python scripts/run_jalon.py --jalon 6
 """
 
 from __future__ import annotations
@@ -23,12 +24,14 @@ JALON_SCRIPTS = {
     3: "run_jalon3_features.py",
     4: "run_jalon4_fonctionnalites.py",
     5: "run_jalon5_deploiement.py",
+    6: "run_jalon6_modele_temporel.py",
+    7: "run_jalon7_plateforme_finale.py",
 }
 
 
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description="Exécute un jalon du planning")
-    p.add_argument("--jalon", required=True, help="1-5 ou 'all'")
+    p.add_argument("--jalon", required=True, help="1-7 ou 'all'")
     return p.parse_args()
 
 
@@ -36,7 +39,7 @@ def main() -> int:
     args = parse_args()
     if args.jalon == "all":
         rc = 0
-        for n in range(1, 6):
+        for n in range(1, 8):
             rc |= _run_one(n)
         return rc
     return _run_one(int(args.jalon))

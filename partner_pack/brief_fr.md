@@ -8,9 +8,9 @@ Estimations **exploratoires** de bien-être relatif à ~1 km, calibrées sur l'i
 
 | Métrique | Valeur |
 |----------|--------|
-| R² OOF | 0.78671 |
-| Spearman OOF | 0.881812 |
-| RMSE | 38940.858549 |
+| R² OOF | 0.8084900748057773 |
+| Spearman OOF | 0.8989568915489291 |
+| RMSE | 36899.14013617368 |
 | Grappes | 430 |
 | CV | block |
 | Unités wealth | zscore |

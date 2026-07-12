@@ -1,7 +1,7 @@
 {
-  "timestamp_utc": "2026-07-11T23:36:49.305033+00:00",
-  "git_sha": "8b8262e",
-  "wealth_path": "outputs/maps/wealth_index_predicted_1km_model_z.tif",
+  "timestamp_utc": "2026-07-12T01:27:37.709448+00:00",
+  "git_sha": "2552282",
+  "wealth_path": "outputs/maps/wealth_index_predicted_1km_model_v4.tif",
   "wealth_units": "zscore",
   "bounds_wgs84": {
     "west": 8.32578308778385,
@@ -23,17 +23,17 @@
       858
     ]
   },
-  "assets_mb": 1.734,
+  "assets_mb": 1.903,
   "deep_dive_regions": [
     "Littoral",
     "Extreme-Nord"
   ],
   "absolute_path_scan": "pass",
   "metrics": {
-    "r2": 0.78671,
-    "spearman": 0.881812,
-    "rmse": 38940.858549,
-    "mae": 30398.795552,
+    "r2": 0.8084900748057773,
+    "spearman": 0.8989568915489291,
+    "rmse": 36899.14013617368,
+    "mae": 28195.973273893997,
     "n_clusters": 430,
     "cv_strategy": "block"
   },
