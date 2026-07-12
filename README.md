@@ -24,17 +24,31 @@ Combinaison de données DHS 2018, Google Earth Engine et validation avec les sta
 
 ## 📊 Visualisations & Cartes
 
-### Carte Nationale de Pauvreté Estimée (v4)
-![Pauvreté Estimée](outputs/maps/wealth_index_predicted_1km_model_v4.png)
+Cartes nationales à **1 km** (modèle v4/v5_post, DHS 2018 + GEE + INS). Usage exploratoire — croiser toujours l’incertitude.
 
-### Carte d’Incertitude
-![Incertitude](outputs/maps/wealth_uncertainty_1km_model_v4.png)
+### Carte nationale — indice de richesse estimé
 
-### Carte d’Actionnabilité (Zones Prioritaires)
-![Actionnabilité](outputs/maps/priority_index_1km_v4.png)
+Proxy DHS au niveau pixel ; les zones sombres correspondent aux estimations de bien-être plus faible.
 
-### Validation Externe avec Données INS
-![Validation INS](outputs/maps/ins_external_validation_scatter.png)
+![Carte nationale de pauvreté estimée — résolution 1 km, modèle v4](assets/screenshots/poverty_map_national_v4.png)
+
+### Carte d’incertitude du modèle
+
+Variabilité des prédictions (ensemble CV spatial). Les zones à incertitude élevée demandent une validation locale avant toute lecture fine.
+
+![Carte d’incertitude — modèle v4, 1 km](assets/screenshots/uncertainty_map_v4.png)
+
+### Carte d’actionnabilité — priorisation exploratoire
+
+Indice composite pauvreté estimée + accessibilité (écoles, santé, routes OSM). **Non opérationnel** — aide à prioriser des zones pour dialogue partenaire, pas pour allocation budgétaire.
+
+![Carte d’actionnabilité — indice de priorisation, v4](assets/screenshots/actionability_map_v4.png)
+
+### Validation externe — modèle vs INS (ECAM 4)
+
+Concordance régionale entre prédictions OOF et taux de pauvreté monétaire INS ; Spearman ≈ **−0.87** (12 régions).
+
+![Validation externe INS — wealth prédit vs pauvreté ECAM 4 par région](assets/screenshots/ins_validation_scatter_v4.png)
 
 ## 🚀 Comment Reproduire
 
