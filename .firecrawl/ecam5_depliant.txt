@@ -1,0 +1,367 @@
+PRINCIP AUX
+INDICA TEURS
+Institut National de la Statistique
+Rue 3025, Quartier du Lac, Yaoundé/Cameroun
+B.P : 134, Yaoundé, 
+Tél. : (+237) 222 22 04 45 / Fax : (+237) 222 23 24 37
+Site web: www.ins-cameroun.cm 
+Email: infos@ins-cameroun.cm
+JANVIER 2024 
+Institut National de la Statistique du Cameroun
+Institut National de la Statistique du Cameroun
+@ins_cameroun
+@ins_cameroun
+QUELQUES INDICATEURS DES ODD EN 2022
+INDICATEUR
+Urbain
+Rural
+Homme
+Femme
+Ensemble
+Taux de pauvreté (%) 21,6 56,3 37,3 38,0 37,7
+Profondeur de la pauvreté (%) 6,5 20,6 12,8 13,2 13,0
+Sévérité de la pauvreté (%) 2,7 9,8 5,9 6,1 6,0
+Taux net de scolarisation au 
+primaire (6-11 ans) 89,1 72,3 81,2 79,6 80,4
+Taux d'alphabétisation des 
+personnes de 15-24 ans 92,1 70,8 87,7 79,6 83,3
+Pourcentage de la population 
+ayant accès a une source 
+améliorée d’eau de boisson 
+(saison sèche)
+92,5 69,6 81,9 81,9 81,9
+Pourcentage de la population 
+ayant accès a une source 
+améliorée d’eau de boisson 
+(saison pluie)
+91,6 68,0 80,8 80,5 80,6
+Pourcentage de la population 
+ayant accès a des toilettes 
+améliorées non partagées
+64,5 28,2 47,2 48,1 47,7
+Pourcentage de la population 
+15 ans ou plus ayant des droits 
+de propriété sur la terre
+0,9 1,1 1,5 0,6 1,0
+Pourcentage de la population 
+15 ans ou plus ayant un 
+compte (bancaire, EMF, poste, 
+compte d’épargne), utilisant 
+le mobile money ou une carte 
+prépayée
+61,0 25,2 52,2 40,2 45,7
+Pourcentage de la population 
+de 15 ans ou plus utilisant le 
+mobile money
+57,5 23,0 47,8 38,4 42,7
+OBJECTIFS ET RÉSULTATS
+La cinquième Enquête Camerounaise Auprès des Ménages 
+(ECAM5) est mise en œuvre suivant une nouvelle approche 
+de mesure de la pauvreté, fondée sur la méthodologie de 
+l’Enquête Harmonisée sur les Conditions de Vie des Ménages 
+(EHCVM), développée par la Banque mondiale et adoptée 
+dans les pays de la CEMAC et de l’UEMOA.
+L’ECAM5 a deux volets :
+1. Une enquête principale basée sur la méthodologie de 
+l’EHCVM et dont les résultats marquent le début d’une 
+nouvelle série des données sur la pauvreté au Cameroun, 
+non comparables à la série précédente. Ce volet a été 
+réalisée en 2021/2022 ;
+2. Une enquête témoin basée sur la méthodologie de 
+l’ECAM4 dont les résultats permettent d’apprécier 
+l’évolution de la pauvreté au Cameroun depuis 2001. Ce 
+volet a été réalisé en 2021.
+L’ECAM5 a pour objectif de produire des indicateurs permettant 
+de suivre la pauvreté et les conditions de vie des ménages au 
+Cameroun.
+De façon spécifique, l’ECAM5 vise :
+  L’actualisation du profil de pauvreté, le suivi et 
+l’évaluation des politiques publiques;
+  Le suivi des différents défis de développement qui 
+s’alignent sur les agendas nationaux (Stratégie 
+Nationale de Développement horizon 2030-SND30), et 
+internationaux (les ODD, l’Accord de Paris, l’Agenda 2063 
+de l’Union Africaine) ;
+  la définition des déterminants de la pauvreté ;
+  l’amélioration de diverses statistiques, notamment 
+les comptes nationaux, l’agriculture et aux activités 
+du monde rural, l’estimation de la consommation des 
+ménages dans les comptes nationaux et l’actualisation 
+des pondérations pour le calcul des indices de prix;
+  les thématiques mettant en lien la pauvreté et :
+• La santé,
+• L’éducation,
+• Le travail des enfants,
+• Le marché du travail,
+• L’accessibilité aux infrastructures de base,
+• L’habitat et le cadre de vie, etc.
+PRINCIPAUX CONCEPTS ET DÉFINITIONS UTILISÉS
+Pauvreté monétaire : Approche utilisée par la Banque 
+Mondiale pour appréhender la pauvreté sous l’angle de la 
+consommation ou du revenu. Cette approche est fondée sur le 
+seuil qui peut varier d’un contexte à un autre ou d’une époque 
+à une autre.
+Indicateur de bien-être : Agrégat obtenu en rapportant 
+la consommation totale du ménage à sa taille. Il se situe en 
+moyenne à 1 363 FCFA par personne et par jour en 2022.
+Seuil de pauvreté : Est le niveau de l’indicateur de bien-
+être au-dessous duquel il est impossible de s’offrir le 
+panier minimum de consommation, c’est-à-dire obtenir 
+une alimentation adaptée du point de vue nutritionnel et 
+satisfaire les besoins de base non alimentaires. Ce seuil de 
+pauvreté est établi à 296 691 FCFA par personne par an en 
+2022, soit 24 724 FCFA par mois ou 813 FCFA par jour.
+Personne pauvre : Personne vivant dans un ménage dont la 
+valeur de la consommation par personne est inférieure au seuil 
+de pauvreté.
+Taux ou incidence de pauvreté : Rapport du nombre d’individus 
+pauvres à l’effectif total de la population. Une personne est 
+considérée comme pauvre si elle vit dans un ménage pauvre.
+Profondeur de la pauvreté : Mesure du gap moyen entre 
+la dépense annuelle de consommation par personne des 
+ménages pauvres et le seuil de pauvreté.
+Sévérité de la pauvreté : Mesure les différences d’intensité de 
+la pauvreté entre les pauvres.
+Indice de GINI : Indice mesurant jusqu’à quel point la distribution 
+des consommations (revenus) des personnes ou des ménages 
+d’un pays s’écarte d’une distribution parfaitement égalitaire.
+Q1 : Ensemble des 20% de la population la plus pauvre en 
+termes de niveau de dépenses de consommation par tête. On 
+parle aussi de premier quintile ou quintile le plus pauvre.
+Q5 : Ensemble des 20% de la population la plus riche en termes 
+de niveau de dépenses de consommation par tête. On parle 
+aussi de cinquième quintile ou quintile le plus riche.
+Rapport Q5/Q1 : Ce rapport mesure l’écart de consommation 
+entre les 20% de la population la plus riche et les 20% de la 
+population la plus pauvre.
+Vulnérabilité : Elle est 
+définie comme le risque de 
+tomber dans la pauvreté 
+dans le futur, même si 
+la personne n’est pas 
+nécessairement pauvre 
+maintenant. Elle est 
+souvent associée aux effets 
+de « chocs » comme une 
+sécheresse, une baisse des 
+prix agricoles ou une crise 
+financière.
+Pourcentage de ménages 
+ayant accès aux bacs/ points 
+de ramassage des ordures 
+Pourcentage de ménages 
+habitant un logement en 
+matériaux définitifs  
+Taux d’alphabétisation des 
+femmes (15 ans ou plus) 
+EVOLUTION DE LA PAUVRETÉ DE 2001 À 2021
+Après un recul, la pauvreté repart à la hausse, beaucoup 
+plus en milieu urbain.
+#"
+"
+ont été apportées : premièrement, le focus est désormais  mis sur la mesure de la consommation effective 
+plutôt que sur la dépense  de consommation , contrairement aux enquêtes précédentes ; deuxièmement, les 
+informations sur la consommation alimentaire sont désormais recueillies sur une période de sept jours, alors 
+que les enquêtes antérieures les captaient sur une période de dix à quinze jours en fonction de la strate de 
+résidence ; et troisièmement, la collecte de données s'est dér oulée en trois vagues pour prendre en compte 
+la saisonnalité de la consommation, alors que dans les ECAM antérieures, elle reposait sur une vague unique. 
+En raison de ces changements méthodologiques majeurs, il ne sera pas possible de comparer les taux de 
+pauvreté obtenus sur la base des données de l’ECAM5 aux taux de pauvreté  enregistrés dans le passé .  
+Cependant, parallèlement au volet principal de l’ECAM5 réalisé suivant la nouvelle méthodologie, une 
+enquête témoin a été menée en 2021 pour permettre d’avoir une tendance de long terme sur l’évolution des 
+indicateurs sur les conditions de vie des populations au niveau national et par milieu de résidence , selon 
+l’ancienne méthodologie. 
+En raison du contexte d’insécurité n’ayant pas permis de couvrir toutes les zones des régions du Nord-Ouest 
+et du Sud-Ouest, les données de ces régions ne sont pas représentatives.  
+OH! #!'/+'#,$I)!"K$&4,4K) K$!)&,)#,$P!"4")-./" 4,'!")
+Les indicateurs de pauvreté ont été produits suivant les deux approches méthodologiques sus-indiquées. 
+3.1.! Evolution de la pauvreté de 2001 à 2021 selon l’ancienne approche 
+Les résultats présentés dans cette section sont calculés suivant l’ancienne approche de mesure de la pauvreté 
+Après un recul de 2001 à 2014, la pauvreté repart à la hausse et atteint 38,6% en 2021  ; s’écartant ainsi 
+de la cible de 30, 8% retenue dans la SND30 . 
+ 
+Sur la base de l’enquête témoin de l’ECAM5, la 
+pauvreté s’est accentuée  entre 2014 et 2021  
+(graphique 1) . Le taux de pauvreté au niveau 
+national, après avoir enregistré une baisse de 2001 
+(40,2%) à 2014 (37,5%), amorce une légère 
+hausse pour atteindre 38,6% en 2021. 
+Graphique 1 : Evolution du taux (%) de pauvreté 
+monétaire 
+  
+Sources": INS, ECAM2, ECAM3, ECAM4 et ECAM5 
+Cette tendance est la même en milieu urbain avec 
+une hausse importante de 7,6 points de 
+pourcentage entre 2014 et 2021.  En effet, le taux 
+de pauvreté passe de 8,9% en 2014 à 16,5% en 
+2021. Par contre, le milieu rural est marqué par 
+une faible augmentation continue du taux de 
+pauvreté sur la période. Celui-ci était de 56,8% en 
+2014 contre 58,3% en 2021.  
+Il est aussi à relever que la tendance de la pauvreté 
+ne s’est pas inversée en terme s d’évolution du 
+nombre de pauvres  qui ne cesse de cro ître, 
+imputable à la croissance démographique qui 
+reste stable. 
+Les éléments du contexte mentionnés ci -dessus, 
+la poussée démographique et les effets des 
+politiques mises en place par le gouvernement et 
+ses partenaires au développement peuvent 
+expliquer cette évolution.  
+ 
+ 
+ 
+ 
+!"#"
+!$#$ %#"
+!&#'
+'$#! ''#( '&#% '%#)
+*(#$ )"#" )+#' )%#&
+!$$% !$$& !$%' !$!%
+()*+,- ./)+0 1-234*03
+17,9
+NIVEAU DE LA PAUVRETÉ EN 2022
+En 2022, environ quatre personnes sur dix sont pauvres 
+(37,7%).  Ainsi, sur une population estimée à près de 26,7 
+millions d’habitants en 2022, 10,1 millions de personnes 
+vivent avec moins de 813 FCFA par jour, soit 24 724 FCFA 
+par mois. C’est dire qu’en 2022, un travailleur ayant juste le 
+Salaire Minimum Interprofessionnel Garanti (SMIG) de 36 270 
+FCFA par mois, qui vit seul, et qui ne bénéficie d’aucun revenu 
+additionnel en nature (autoconsommation de produits du 
+champ, logement comme propriétaire, etc.) bascule dans la 
+pauvreté dès lors qu’une autre personne sans revenu est 
+ajoutée dans le ménage.
+DISPARITÉ RÉGIONALE DU TAUX DE PAUVRETÉ 
+EN 2022
+Les taux les plus élevés sont enregistrés dans les régions 
+d’enquête de l’Extrême-Nord, du Nord-Ouest et du Nord. 
+Par contre, Yaoundé, Douala, le Sud, le Centre et le Littoral 
+affichent les niveaux de pauvreté les plus bas et en dessous de 
+30,8% de la cible visée par la SND30.
+Milieu de résidence
+Incidence de la pauvreté (%)
+Profondeur de la pauvreté (%)
+Sévérité de la pauvreté (%)
+Répartition des pauvres (%)
+Répartition de la population (%)
+Ensemble urbain 21,6 6,5 2,7 30,8 53,7
+Yaoundé 10,8 3,0 1,1 3,0 10,3
+Douala 8,3 1,8 0,6 2,8 12,5
+Autre urbain 30,6 9,5 4,1 25,0 30,9
+Rural 56,3 20,6 9,8 69,2 46,3
+Cameroun 37,7 13,0 6,0 100,0 100,0
+INÉGALITÉS EN 2022
+PAUVRETÉ ET SECTEUR INSTITUTIONNEL EN 2022
+La pauvreté touche plus les personnes qui habitent dans un 
+ménage dont le chef travaille dans le secteur primaire.
+Urbain Rural Cameroun
+Indice de Gini (%) 37,2 37,3 40,1
+Rapport Q5/Q1 7,8 7,2 7,8
+Taux de
+pauvreté (%)
+Profondeur de la 
+pauvreté (%)
+Sévérité de la 
+pauvreté (%)
+Répartition des 
+pauvres (%)
+Répartition de la 
+population (%)
+Sans emploi 26,8 9,4 4,5 7,3 10,3
+Primaire 59,0 21,6 10,3 64,9 41,5
+Secondaire 26,6 7,7 3,2 7,6 10,8
+Commerce 23,3 7,2 2,9 7,5 12,0
+Autre tertiaire 18,9 5,6 2,3 12,7 25,4
+Total 37,7 13,0 6,0 100,0 100,0
+INDICATEURS DU MARCHÉ DU TRAVAIL EN 2022
+OPINIONS DES MÉNAGES SUR LA PAUVRETÉ EN 2022
+Pour les chefs de ménage, il faudrait créer des emplois pour 
+éradiquer la pauvreté qui, d’après eux, est justement causée 
+par le manque d’emploi.
+Population 
+de 14 ans 
+ou plus
+Pauvre
+Non 
+pauvre
+Ensemble
+Taux de chômage 2,3 4,5 3,8
+Taux d'activité au sens du BIT 61,4 62,7 62,3
+Taux de salarisation 12,8 34,4 27,6
+Taux d'emploi (ancienne approche ) 60,0 59,8 59,9
+Pauvre Non pauvre Ensemble
+Principale cause de 
+la pauvreté (manque 
+d’emploi)
+39,6 51,6 48,4
+Action prioritaire 1 pour 
+lutter contre la pauvreté 
+(création d’emploi)
+38,2 44,9 43,1
+Pauvre
+Non Pauvre
+Ensemble
+ÉDUCATION
+Taux d’alphabétisation des adultes 
+(15 ans ou plus) 53,9 84,9 75,3
+Taux d’alphabétisation des femmes 
+(15 ans ou plus) 45,2 81,0 69,5
+Taux net de scolarisation au primaire 
+(6-11 ans), 2021-2022 70,4 89,4 80,4
+Taux net de scolarisation au secondaire 
+(12-18 ans), 2021-2022 32,4 65,3 51,8
+Proportion (%) de personnes de 14 
+ans ou plus ayant suivi une formation 
+professionnelle
+6,3 4,1 4,8
+Part (%) de la dépense d’éducation dans 
+la dépense totale 4,4 4,5 4,4
+SANTÉ
+Pourcentage de la population consultant 
+un personnel de santé qualifié 56,1 59,7 58,6
+Part (%) de la dépense de santé dans la 
+dépense totale 5,5 5,5 5,5
+LOGEMENT ET ÉQUIPEMENTS DES MÉNAGES
+Pourcentage de ménages possédant une 
+bouteille de gaz 5,5 47,2 36,2
+Pourcentage de ménages possédant un 
+poste radio 9,7 14,1 12,9
+Pourcentage de ménages possédant un 
+téléviseur 15,5 56,5 45,7
+Pourcentage de ménages ayant accès a 
+l’électricité 31,3 77,1 65,0
+Pourcentage de ménages utilisant des 
+toilettes améliorées non partagées 25,1 55,5 47,5
+Pourcentage de ménages utilisant une 
+source améliorée d’eau de boisson 
+(saison sèche)
+70,9 87,4 83,0
+Pourcentage de ménages utilisant une 
+source améliorée d’eau de boisson 
+(saison pluies)
+69,0 86,5 81,9
+Pourcentage de ménages ayant accès 
+aux bacs/points de ramassage des 
+ordures
+18,9 51,5 42,9
+Pourcentage de ménages propriétaires 
+de leur logement 74,0 50,6 56,8
+Pourcentage de ménages habitant un 
+logement en matériaux définitifs 17,4 57,6 47,0
+Pourcentage de ménages dont un 
+membre possède un téléphone mobile 74,1 91,2 86,7
+Pourcentage de ménages disposant 
+d’une connexion Internet 0,5 2,9 2,3
+PATRIMOINE ET CAPITAL SOCIAL
+Pourcentage de ménages dont un 
+moins un membre possède les droits de 
+propriété sur la terre agricole
+1,2 2,9 2,5
+Pourcentage de chef de ménage ayant 
+un compte en banque, mobile money, 
+etc.
+39,2 76,3 66,5
+AUTRES 
+CARACTERISTIQUES ET 
+PAUVRETÉ EN 2022

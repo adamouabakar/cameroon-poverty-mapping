@@ -7,28 +7,24 @@ Combinaison de données DHS 2018, Google Earth Engine et validation avec les sta
 ![License](https://img.shields.io/github/license/adamouabakar/cameroon-poverty-mapping?style=flat-square)
 ![Python](https://img.shields.io/badge/Python-3.10+-blue?style=flat-square)
 ![GEE](https://img.shields.io/badge/Google_Earth_Engine-Enabled-green?style=flat-square)
-![Stars](https://img.shields.io/github/stars/adamouabakar/cameroon-poverty-mapping?style=flat-square)
 
-## 🎯 Objectif
+## 🎯 Pourquoi ce projet ?
 
-Produire une **cartographie fine, rigoureuse et actionnable** de la pauvreté au Cameroun en combinant :
-- Enquêtes terrain (DHS 2018)
-- Données satellitaires (Sentinel-2, VIIRS, GHSL, CHIRPS)
-- **Validation externe** avec les données officielles de l’**Institut National de la Statistique (INS)**
+À 20 ans, en partant de données limitées et de ressources modestes au Cameroun, ce projet vise à produire une **cartographie fine et actionnable** de la pauvreté pour aider les chercheurs, les ONG et les décideurs à mieux cibler les interventions.
 
-## ✨ Résultats Principaux (v2.0.0)
+## ✨ Résultats Principaux (v1.1.0)
 
-- **430 grappes DHS réelles** traitées
-- **Modèle v5_post** (GEE v3 + INS ECAM 5 + accessibilité)
+- **430 grappes DHS 2018** réelles traitées
+- **Feature Set v4** avec variables contextuelles INS
 - **Performance du modèle** :
-  - R² OOF : **0.809**
-  - Spearman : **0.899**
+  - R² OOF : **0.793**
+  - Spearman : **0.889**
 - Cartes nationales avec **incertitude** et **zones d’actionnabilité**
-- Validation externe avec données INS (cohérence régionale forte)
+- Validation externe avec données officielles INS (cohérence régionale forte)
 
 ## 📊 Visualisations & Cartes
 
-### Carte Nationale de Pauvreté Estimée
+### Carte Nationale de Pauvreté Estimée (v4)
 ![Pauvreté Estimée](outputs/maps/wealth_index_predicted_1km_model_v4.png)
 
 ### Carte d’Incertitude
@@ -40,14 +36,13 @@ Produire une **cartographie fine, rigoureuse et actionnable** de la pauvreté au
 ### Validation Externe avec Données INS
 ![Validation INS](outputs/maps/ins_external_validation_scatter.png)
 
-## 🚀 Comment Reproduire le Projet
+## 🚀 Comment Reproduire
 
 ```bash
 git clone https://github.com/adamouabakar/cameroon-poverty-mapping.git
 cd cameroon-poverty-mapping
 
-# Installation des dépendances
 pip install -r requirements.txt
 
-# Exécution complète du pipeline
+# Pipeline complet
 python scripts/run_pipeline.py
