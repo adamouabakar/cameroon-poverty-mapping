@@ -16,13 +16,13 @@ Produire une **cartographie fine, rigoureuse et actionnable** de la pauvreté au
 - Données satellitaires (Sentinel-2, VIIRS, GHSL, CHIRPS)
 - **Validation externe** avec les données officielles de l’**Institut National de la Statistique (INS)**
 
-## ✨ Résultats Principaux (v1.1.0)
+## ✨ Résultats Principaux (v2.0.0)
 
 - **430 grappes DHS réelles** traitées
-- **Feature Set v4** avec variables contextuelles INS
+- **Modèle v5_post** (GEE v3 + INS ECAM 5 + accessibilité)
 - **Performance du modèle** :
-  - R² OOF : **0.793**
-  - Spearman : **0.889**
+  - R² OOF : **0.809**
+  - Spearman : **0.899**
 - Cartes nationales avec **incertitude** et **zones d’actionnabilité**
 - Validation externe avec données INS (cohérence régionale forte)
 
