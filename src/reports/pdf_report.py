@@ -1,4 +1,4 @@
-"""Générateur de rapport PDF professionnel pour ONG."""
+"""Générateur de rapport PDF professionnel pour ONG — Phase 3."""
 
 from __future__ import annotations
 
@@ -8,18 +8,44 @@ from io import BytesIO
 from pathlib import Path
 from typing import Any
 
+import matplotlib
+
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import pandas as pd
 from matplotlib.backends.backend_pdf import PdfPages
 from matplotlib.figure import Figure
 
+from src.reports.ecam5_dashboard import build_ecam5_model_comparison
+from src.reports.field_import import load_field_sites_for_report
+from src.reports.report_config import ReportOptions, load_report_config, t
 from src.reports.region_stats import compute_regional_summary, load_cluster_frame
+from src.reports.watchlist import evaluate_watchlist, format_alerts_text
 
 DEFAULT_SCREENSHOTS = {
     "wealth": "assets/screenshots/poverty_map_national_v4.png",
     "uncertainty": "assets/screenshots/uncertainty_map_v4.png",
     "priority": "assets/screenshots/actionability_map_v4.png",
     "ins": "assets/screenshots/ins_validation_scatter_v4.png",
+}
+
+MAP_CAPTIONS = {
+    "wealth": {
+        "fr": "Carte nationale — indice de richesse estimé (1 km)",
+        "en": "National map — estimated wealth index (1 km)",
+    },
+    "uncertainty": {
+        "fr": "Carte d'incertitude du modèle",
+        "en": "Model uncertainty map",
+    },
+    "priority": {
+        "fr": "Carte d'actionnabilité / priorisation exploratoire",
+        "en": "Actionability / prioritization map (exploratory)",
+    },
+    "ins": {
+        "fr": "Validation externe — modèle vs pauvreté INS par région",
+        "en": "External validation — model vs INS poverty by region",
+    },
 }
 
 
@@ -58,14 +84,20 @@ def _text_page(fig: Figure, lines: list[str], *, title: str = "") -> None:
         y -= 0.045
 
 
+def _logo_page(fig: Figure, logo_path: Path) -> None:
+    ax = fig.add_axes([0.25, 0.35, 0.5, 0.3])
+    ax.axis("off")
+    img = plt.imread(logo_path)
+    ax.imshow(img)
+
+
 def _image_page(fig: Figure, img_path: Path, *, caption: str) -> None:
     ax = fig.add_axes([0.05, 0.12, 0.9, 0.78])
     ax.axis("off")
     if img_path.is_file():
-        img = plt.imread(img_path)
-        ax.imshow(img)
+        ax.imshow(plt.imread(img_path))
     else:
-        ax.text(0.5, 0.5, f"Image manquante:\n{img_path.name}", ha="center", va="center")
+        ax.text(0.5, 0.5, f"Missing:\n{img_path.name}", ha="center", va="center")
     fig.text(0.05, 0.04, caption, fontsize=9, style="italic")
 
 
@@ -74,9 +106,9 @@ def _table_page(fig: Figure, df: pd.DataFrame, *, title: str) -> None:
     ax.axis("off")
     ax.set_title(title, fontsize=14, fontweight="bold", loc="left", pad=20)
     if df.empty:
-        ax.text(0.05, 0.5, "Aucune donnée pour cette région.", fontsize=11)
+        ax.text(0.05, 0.5, "—", fontsize=11)
         return
-    show = df.head(14)
+    show = df.head(16)
     table = ax.table(
         cellText=show.values,
         colLabels=show.columns,
@@ -84,23 +116,23 @@ def _table_page(fig: Figure, df: pd.DataFrame, *, title: str) -> None:
         cellLoc="center",
     )
     table.auto_set_font_size(False)
-    table.set_fontsize(8)
-    table.scale(1, 1.4)
+    table.set_fontsize(7)
+    table.scale(1, 1.3)
 
 
-def _shap_bar_page(fig: Figure, shap_data: dict[str, Any]) -> None:
+def _shap_bar_page(fig: Figure, shap_data: dict[str, Any], *, lang: str) -> None:
     ax = fig.add_axes([0.12, 0.15, 0.82, 0.7])
     items = shap_data.get("top10_mean_abs_shap", [])[:10]
     if not items:
-        ax.text(0.5, 0.5, "SHAP non disponible", ha="center")
+        ax.text(0.5, 0.5, "SHAP N/A", ha="center")
         ax.axis("off")
         return
     labels = [x["feature"] for x in items][::-1]
     vals = [x["mean_abs_shap"] for x in items][::-1]
     ax.barh(labels, vals, color="#2c7bb6")
-    ax.set_xlabel("Importance moyenne |SHAP|")
-    ax.set_title("Importance des variables (modèle v4)", fontweight="bold")
-    fig.text(0.05, 0.04, "Source: SHAP TreeExplainer — échantillon grappes DHS", fontsize=8, style="italic")
+    ax.set_xlabel("|SHAP|")
+    title = "SHAP feature importance" if lang == "en" else "Importance des variables (SHAP)"
+    ax.set_title(title, fontweight="bold")
 
 
 def _comparison_page(fig: Figure, v4: dict | None, v5: dict | None) -> None:
@@ -118,7 +150,11 @@ def _comparison_page(fig: Figure, v4: dict | None, v5: dict | None) -> None:
     ax.set_xticklabels(labels)
     ax.set_ylim(0, 1.05)
     ax.legend()
-    ax.set_title("Comparaison modèles (OOF)", fontweight="bold")
+    ax.set_title("Model comparison (OOF)", fontweight="bold")
+
+
+def _section_enabled(opts: ReportOptions, key: str) -> bool:
+    return opts.sections.get(key, True)
 
 
 def generate_ngo_pdf_report(
@@ -126,13 +162,14 @@ def generate_ngo_pdf_report(
     *,
     region: str = "Tout le Cameroun",
     output_path: Path | None = None,
+    options: ReportOptions | None = None,
 ) -> bytes:
-    """
-    Génère un rapport PDF multi-pages : couverture, cartes, stats, SHAP, comparaison.
-
-    Retourne les bytes PDF ; écrit sur disque si output_path fourni.
-    """
+    """Génère un rapport PDF multi-pages configurable (Phase 3)."""
     project_root = Path(project_root)
+    opts = options or load_report_config(project_root=project_root)
+    opts.region = region
+    lang = opts.language if opts.language in ("fr", "en") else "fr"
+
     clusters = load_cluster_frame(project_root)
     summary = compute_regional_summary(clusters, region=region)
     metrics = _load_metrics(project_root)
@@ -150,69 +187,108 @@ def generate_ngo_pdf_report(
     v5_m = (v5_raw or {}).get("metrics_v5_post_oof")
 
     now = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
-    region_line = region if region != "Tout le Cameroun" else "Vue nationale"
+    region_line = region if region != "Tout le Cameroun" else t("national_view", lang)
+
+    full_summary = compute_regional_summary(clusters)
+    alerts = evaluate_watchlist(full_summary, opts.watchlist_rules, lang=lang)
+
+    field_df = pd.DataFrame()
+    field_path = opts.field_csv
+    if field_path and field_path.is_file():
+        try:
+            field_df = load_field_sites_for_report(field_path)
+        except Exception:
+            field_df = pd.DataFrame()
+
+    ecam5_df = pd.DataFrame()
+    if _section_enabled(opts, "ecam5_comparison"):
+        try:
+            ecam5_df = build_ecam5_model_comparison(project_root)
+        except Exception:
+            ecam5_df = pd.DataFrame()
 
     buffer = BytesIO()
     with PdfPages(buffer) as pdf:
-        # Couverture
-        fig = plt.figure(figsize=(8.27, 11.69))
-        _text_page(
-            fig,
-            [
-                f"Date : {now}",
-                f"Périmètre : {region_line}",
-                "",
-                "Résumé exécutif",
-                f"• Modèle : {metrics.get('model', 'v4')} — R² {metrics.get('r2', 0):.3f}, "
-                f"Spearman {metrics.get('spearman', 0):.3f}",
-                f"• Grappes DHS 2018 : {len(clusters)}",
-                f"• Validation INS ECAM4 : Spearman {ins_spearman:.3f}" if ins_spearman else "• Validation INS : —",
-                "",
-                "Avertissement éthique",
-                "Estimations exploratoires uniquement. Ne remplace pas l'INS.",
-                "Pas de ciblage ménage/village. Croiser l'incertitude.",
-                "",
-                "Contact : abubakradamou@gmail.com",
-                "https://github.com/adamouabakar/cameroon-poverty-mapping",
-            ],
-            title="Rapport ONG — Cameroon Poverty Mapping",
-        )
-        pdf.savefig(fig)
-        plt.close(fig)
-
-        # Cartes
-        for key, caption in [
-            ("wealth", "Carte nationale — indice de richesse estimé (1 km)"),
-            ("uncertainty", "Carte d'incertitude du modèle"),
-            ("priority", "Carte d'actionnabilité / priorisation exploratoire"),
-            ("ins", "Validation externe — modèle vs pauvreté INS par région"),
-        ]:
+        if _section_enabled(opts, "cover"):
             fig = plt.figure(figsize=(8.27, 11.69))
-            _image_page(fig, project_root / DEFAULT_SCREENSHOTS[key], caption=caption)
+            if opts.logo_path and opts.logo_path.is_file():
+                _logo_page(fig, opts.logo_path)
+            exec_label = "Résumé exécutif" if lang == "fr" else "Executive summary"
+            ethics_label = "Avertissement" if lang == "fr" else "Ethics notice"
+            lines = [
+                f"{opts.organization}",
+                f"Date : {now}",
+                f"{'Périmètre' if lang == 'fr' else 'Scope'} : {region_line}",
+                "",
+                exec_label,
+                f"• Model {metrics.get('model', 'v4')} — R² {metrics.get('r2', 0):.3f}, "
+                f"Spearman {metrics.get('spearman', 0):.3f}",
+                f"• DHS clusters : {len(clusters)}",
+            ]
+            if ins_spearman is not None:
+                lines.append(f"• INS ECAM4 Spearman : {ins_spearman:.3f}")
+            lines.extend(["", ethics_label, t("ethics", lang), "", opts.contact_email])
+            _text_page(fig, lines, title=t("cover_title", lang))
             pdf.savefig(fig)
             plt.close(fig)
 
-        # Stats régionales
-        fig = plt.figure(figsize=(11.69, 8.27))
-        _table_page(fig, summary, title=f"Statistiques par unité administrative DHS — focus {region_line}")
-        pdf.savefig(fig)
-        plt.close(fig)
+        if _section_enabled(opts, "maps"):
+            for key in ("wealth", "uncertainty", "priority", "ins"):
+                fig = plt.figure(figsize=(8.27, 11.69))
+                _image_page(
+                    fig,
+                    project_root / DEFAULT_SCREENSHOTS[key],
+                    caption=MAP_CAPTIONS[key][lang],
+                )
+                pdf.savefig(fig)
+                plt.close(fig)
 
-        # SHAP
-        if shap:
+        if _section_enabled(opts, "regional_stats"):
+            fig = plt.figure(figsize=(11.69, 8.27))
+            _table_page(
+                fig,
+                summary,
+                title=f"{t('regional_stats', lang)} — {region_line}",
+            )
+            pdf.savefig(fig)
+            plt.close(fig)
+
+        if _section_enabled(opts, "ecam5_comparison") and not ecam5_df.empty:
+            cols = [
+                "region", "n_clusters", "mean_predicted_wealth",
+                "poverty_rate_pct", "rank_gap",
+            ]
+            fig = plt.figure(figsize=(11.69, 8.27))
+            _table_page(fig, ecam5_df[cols], title=t("ecam5_title", lang))
+            pdf.savefig(fig)
+            plt.close(fig)
+
+        if _section_enabled(opts, "watchlist_alerts"):
             fig = plt.figure(figsize=(8.27, 11.69))
-            _shap_bar_page(fig, shap)
+            _text_page(fig, format_alerts_text(alerts, lang=lang), title="")
+            pdf.savefig(fig)
+            plt.close(fig)
+
+        if _section_enabled(opts, "field_validation") and not field_df.empty:
+            fig = plt.figure(figsize=(11.69, 8.27))
+            _table_page(fig, field_df, title=t("field_title", lang))
+            pdf.savefig(fig)
+            plt.close(fig)
+
+        if _section_enabled(opts, "shap") and shap:
+            fig = plt.figure(figsize=(8.27, 11.69))
+            _shap_bar_page(fig, shap, lang=lang)
             pdf.savefig(fig)
             plt.close(fig)
             beeswarm = project_root / "outputs/reports/shap_beeswarm_v4.png"
             if beeswarm.is_file():
                 fig = plt.figure(figsize=(8.27, 11.69))
-                _image_page(fig, beeswarm, caption="SHAP beeswarm — distribution des effets")
+                cap = "SHAP beeswarm" if lang == "en" else "SHAP beeswarm — distribution"
+                _image_page(fig, beeswarm, caption=cap)
                 pdf.savefig(fig)
                 plt.close(fig)
 
-        # Comparaison v4/v5
-        if v4_m or v5_m:
+        if _section_enabled(opts, "model_comparison") and (v4_m or v5_m):
             fig = plt.figure(figsize=(8.27, 11.69))
             _comparison_page(fig, v4_m, v5_m)
             pdf.savefig(fig)

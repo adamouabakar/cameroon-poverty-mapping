@@ -1,0 +1,40 @@
+# Configuration rapport ONG — Phase 3
+
+organization:
+  name: "Cameroon Poverty Mapping"
+  logo_path: ""  # ex: assets/logo_ong.png (optionnel)
+  contact_email: "abubakradamou@gmail.com"
+
+report:
+  default_language: fr  # fr | en
+  sections:
+    cover: true
+    maps: true
+    regional_stats: true
+    shap: true
+    model_comparison: true
+    ecam5_comparison: true
+    field_validation: true
+    watchlist_alerts: true
+
+watchlist:
+  # Alertes si métrique dépasse seuil (par région)
+  min_clusters: 5
+  alerts:
+    - metric: uncertainty_mean
+      threshold: 45000
+      direction: above
+      label_fr: "Incertitude élevée"
+      label_en: "High uncertainty"
+    - metric: wealth_mean
+      threshold: -80000
+      direction: below
+      label_fr: "Wealth très bas"
+      label_en: "Very low wealth"
+
+field_validation:
+  default_csv: "partner_pack/field_data/sites_proxy.csv"
+
+deployment:
+  streamlit_port: 8501
+  map_url: "https://adamouabakar.github.io/cameroon-poverty-mapping/"

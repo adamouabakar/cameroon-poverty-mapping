@@ -1,0 +1,413 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "region": "Extr\u00eame-Nord",
+        "source": "REGION_BOUNDS"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.0,
+              10.0
+            ],
+            [
+              15.5,
+              10.0
+            ],
+            [
+              15.5,
+              12.5
+            ],
+            [
+              13.0,
+              12.5
+            ],
+            [
+              13.0,
+              10.0
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "region": "Nord",
+        "source": "REGION_BOUNDS"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.0,
+              8.5
+            ],
+            [
+              15.0,
+              8.5
+            ],
+            [
+              15.0,
+              10.5
+            ],
+            [
+              13.0,
+              10.5
+            ],
+            [
+              13.0,
+              8.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "region": "Adamaoua",
+        "source": "REGION_BOUNDS"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              12.0,
+              6.5
+            ],
+            [
+              14.5,
+              6.5
+            ],
+            [
+              14.5,
+              8.5
+            ],
+            [
+              12.0,
+              8.5
+            ],
+            [
+              12.0,
+              6.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "region": "Est",
+        "source": "REGION_BOUNDS"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.5,
+              2.5
+            ],
+            [
+              16.0,
+              2.5
+            ],
+            [
+              16.0,
+              5.5
+            ],
+            [
+              13.5,
+              5.5
+            ],
+            [
+              13.5,
+              2.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "region": "Centre",
+        "source": "REGION_BOUNDS"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              11.0,
+              3.5
+            ],
+            [
+              12.5,
+              3.5
+            ],
+            [
+              12.5,
+              5.5
+            ],
+            [
+              11.0,
+              5.5
+            ],
+            [
+              11.0,
+              3.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "region": "Littoral",
+        "source": "REGION_BOUNDS"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              9.5,
+              3.5
+            ],
+            [
+              10.5,
+              3.5
+            ],
+            [
+              10.5,
+              5.0
+            ],
+            [
+              9.5,
+              5.0
+            ],
+            [
+              9.5,
+              3.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "region": "Ouest",
+        "source": "REGION_BOUNDS"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              9.5,
+              5.0
+            ],
+            [
+              11.0,
+              5.0
+            ],
+            [
+              11.0,
+              6.5
+            ],
+            [
+              9.5,
+              6.5
+            ],
+            [
+              9.5,
+              5.0
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "region": "Sud",
+        "source": "REGION_BOUNDS"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              9.5,
+              1.5
+            ],
+            [
+              11.5,
+              1.5
+            ],
+            [
+              11.5,
+              3.5
+            ],
+            [
+              9.5,
+              3.5
+            ],
+            [
+              9.5,
+              1.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "region": "Sud-Ouest",
+        "source": "REGION_BOUNDS"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              8.5,
+              4.0
+            ],
+            [
+              10.0,
+              4.0
+            ],
+            [
+              10.0,
+              6.0
+            ],
+            [
+              8.5,
+              6.0
+            ],
+            [
+              8.5,
+              4.0
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "region": "Nord-Ouest",
+        "source": "REGION_BOUNDS"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              9.5,
+              5.5
+            ],
+            [
+              11.0,
+              5.5
+            ],
+            [
+              11.0,
+              7.0
+            ],
+            [
+              9.5,
+              7.0
+            ],
+            [
+              9.5,
+              5.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "region": "Douala",
+        "source": "REGION_BOUNDS"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              9.5,
+              4.0
+            ],
+            [
+              9.9,
+              4.0
+            ],
+            [
+              9.9,
+              4.3
+            ],
+            [
+              9.5,
+              4.3
+            ],
+            [
+              9.5,
+              4.0
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "region": "Yaound\u00e9",
+        "source": "REGION_BOUNDS"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              11.3,
+              3.7
+            ],
+            [
+              11.7,
+              3.7
+            ],
+            [
+              11.7,
+              4.0
+            ],
+            [
+              11.3,
+              4.0
+            ],
+            [
+              11.3,
+              3.7
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}
