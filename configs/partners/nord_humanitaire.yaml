@@ -1,0 +1,27 @@
+# Profil ONG focus Extrême-Nord — Phase 4
+partner_id: nord_humanitaire
+display_name: "Alliance humanitaire Nord"
+inherits: configs/ngo_report.yaml
+
+organization:
+  name: "Alliance humanitaire Nord Cameroun"
+  contact_email: "contact@nord-humanitaire.cm"
+
+report:
+  default_language: fr
+  focus_region: "Extrême-Nord"
+  sections:
+    model_comparison: false
+
+watchlist:
+  alerts:
+    - metric: uncertainty_mean
+      threshold: 42000
+      direction: above
+      label_fr: "Incertitude très élevée (Nord)"
+      label_en: "Very high uncertainty (North)"
+    - metric: wealth_mean
+      threshold: -85000
+      direction: below
+      label_fr: "Wealth critique"
+      label_en: "Critical wealth level"

@@ -1,5 +1,5 @@
 """
-Démo Streamlit — Cameroon Poverty Mapping (Phase 3 ONG).
+Démo Streamlit — Cameroon Poverty Mapping (Phase 4 ONG).
 
 Usage:
   streamlit run streamlit_demo.py
@@ -22,6 +22,7 @@ import streamlit.components.v1 as components
 
 from src.reports.ecam5_dashboard import build_ecam5_model_comparison
 from src.reports.field_import import load_field_sites_for_report
+from src.reports.partner_profile import list_partner_profiles, load_partner_profile
 from src.reports.pdf_report import generate_ngo_pdf_report
 from src.reports.report_config import ReportOptions, load_report_config, t
 from src.reports.region_stats import (
@@ -69,12 +70,14 @@ UI = {
         "field_upload": "Importer CSV terrain (optionnel)",
         "field_help": "Colonnes : site_id, region, lat, lon, local_assessment, …",
         "lang": "Langue",
+        "partner": "Profil partenaire",
+        "show_bounds": "Afficher limites admin DHS",
         "about_md": """
-        ### Phase 3 — Outils ONG
-        - **Rapport PDF** configurable (FR/EN, sections, logo)
-        - **ECAM 5** vs prédictions modèle par région
-        - **Alertes** seuils régionaux (watchlist)
-        - **Validation terrain** : import CSV partenaires
+        ### Phase 4 — Livraison partenaires
+        - **Profils partenaires** : configs YAML personnalisées (`configs/partners/`)
+        - **Packs ZIP** : PDF, CSV, brief, alertes (`partner_pack/deliveries/`)
+        - **Limites admin** : overlay GeoJSON sur carte grappes
+        - **Déploiement** : Docker ou Streamlit Cloud (`.streamlit/config.toml`)
 
         **Éthique** : ne pas utiliser pour ciblage ménage/village ni remplacer l'INS.
         """,
@@ -117,12 +120,14 @@ UI = {
         "field_upload": "Upload field CSV (optional)",
         "field_help": "Columns: site_id, region, lat, lon, local_assessment, …",
         "lang": "Language",
+        "partner": "Partner profile",
+        "show_bounds": "Show DHS admin boundaries",
         "about_md": """
-        ### Phase 3 — NGO tools
-        - **Configurable PDF** report (FR/EN, sections, logo)
-        - **ECAM 5** vs model predictions by region
-        - **Threshold alerts** (watchlist)
-        - **Field validation** : partner CSV import
+        ### Phase 4 — Partner delivery
+        - **Partner profiles** : custom YAML configs (`configs/partners/`)
+        - **ZIP packs** : PDF, CSV, brief, alerts (`partner_pack/deliveries/`)
+        - **Admin boundaries** : GeoJSON overlay on cluster map
+        - **Deployment** : Docker or Streamlit Cloud (`.streamlit/config.toml`)
 
         **Ethics** : not for household/village targeting; does not replace INS.
         """,
@@ -140,6 +145,7 @@ PRIORITY_PATH = PROJECT_ROOT / "outputs/maps/priority_index_1km_actionable.tif"
 FALLBACK_PRIORITY = PROJECT_ROOT / "outputs/maps/priority_index_1km_v4.tif"
 INS_SCATTER = PROJECT_ROOT / "assets/screenshots/ins_validation_scatter_v4.png"
 SHAP_JSON = PROJECT_ROOT / "site/assets/shap_summary.json"
+ADMIN_GEOJSON = PROJECT_ROOT / "data/reference/admin/dhs_regions_bounds.geojson"
 
 
 @st.cache_data
@@ -159,6 +165,13 @@ def _load_shap() -> dict:
 
 
 @st.cache_data
+def _load_admin_geojson() -> dict:
+    if ADMIN_GEOJSON.is_file():
+        return json.loads(ADMIN_GEOJSON.read_text(encoding="utf-8"))
+    return {}
+
+
+@st.cache_data
 def _load_ecam5_table() -> pd.DataFrame:
     try:
         return build_ecam5_model_comparison(PROJECT_ROOT)
@@ -174,7 +187,12 @@ def _wealth_color(value: float, vmin: float, vmax: float) -> str:
     return f"#{r:02x}{g:02x}{b:02x}"
 
 
-def _build_cluster_map(df: pd.DataFrame, region: str) -> folium.Map:
+def _build_cluster_map(
+    df: pd.DataFrame,
+    region: str,
+    *,
+    show_boundaries: bool = False,
+) -> folium.Map:
     if region != "Tout le Cameroun" and region in REGION_BOUNDS:
         (lat_lo, lon_lo), (lat_hi, lon_hi) = REGION_BOUNDS[region]
         center = [(lat_lo + lat_hi) / 2, (lon_lo + lon_hi) / 2]
@@ -184,6 +202,23 @@ def _build_cluster_map(df: pd.DataFrame, region: str) -> folium.Map:
         zoom = 6
 
     m = folium.Map(location=center, zoom_start=zoom, tiles="OpenStreetMap")
+
+    if show_boundaries:
+        geo = _load_admin_geojson()
+        if geo.get("features"):
+
+            def _style(feat: dict) -> dict:
+                name = feat.get("properties", {}).get("region", "")
+                active = region != "Tout le Cameroun" and name == region
+                return {
+                    "fillColor": "#2c7bb6" if active else "#aaaaaa",
+                    "color": "#333333",
+                    "weight": 2 if active else 1,
+                    "fillOpacity": 0.25 if active else 0.08,
+                }
+
+            folium.GeoJson(geo, style_function=_style, name="DHS regions").add_to(m)
+
     if df.empty:
         return m
 
@@ -241,8 +276,12 @@ def _build_report_options(
 
 # --- Config & language (before set_page_config uses lang) ---
 _base_opts = load_report_config(project_root=PROJECT_ROOT)
+_partners = list_partner_profiles(PROJECT_ROOT)
+_partner_ids = ["default"] + [p.partner_id for p in _partners]
 if "lang" not in st.session_state:
     st.session_state.lang = _base_opts.language if _base_opts.language in ("fr", "en") else "fr"
+if "partner_id" not in st.session_state:
+    st.session_state.partner_id = "default"
 
 st.set_page_config(
     page_title=UI[st.session_state.lang]["page_title"],
@@ -259,6 +298,34 @@ st.caption(L["caption"])
 
 # --- Sidebar ---
 st.sidebar.header(L["filters"])
+
+def _partner_label(pid: str) -> str:
+    if pid == "default":
+        return "Défaut" if lang == "fr" else "Default"
+    for p in _partners:
+        if p.partner_id == pid:
+            return p.display_name
+    return pid
+
+partner_id = st.sidebar.selectbox(
+    L["partner"],
+    _partner_ids,
+    index=_partner_ids.index(st.session_state.partner_id)
+    if st.session_state.partner_id in _partner_ids
+    else 0,
+    format_func=_partner_label,
+)
+st.session_state.partner_id = partner_id
+
+if partner_id == "default":
+    _active_opts = _base_opts
+    _default_region = "Tout le Cameroun"
+else:
+    _profile = load_partner_profile(PROJECT_ROOT, partner_id)
+    _active_opts = _profile.options
+    _default_region = _profile.focus_region
+    st.sidebar.caption(f"{'Focus' if lang == 'en' else 'Périmètre'} : {_default_region}")
+
 lang = st.sidebar.selectbox(
     L["lang"],
     ["fr", "en"],
@@ -268,8 +335,10 @@ lang = st.sidebar.selectbox(
 st.session_state.lang = lang
 L = UI[lang]
 
-region = st.sidebar.selectbox(L["admin_unit"], DHS_REGIONS, index=0)
+_region_index = DHS_REGIONS.index(_default_region) if _default_region in DHS_REGIONS else 0
+region = st.sidebar.selectbox(L["admin_unit"], DHS_REGIONS, index=_region_index)
 layer = st.sidebar.radio(L["raster_layer"], L["layers"], index=0)
+show_bounds = st.sidebar.checkbox(L["show_bounds"], value=region != "Tout le Cameroun")
 
 uploaded = st.sidebar.file_uploader(L["field_upload"], type=["csv"], help=L["field_help"])
 field_path: Path | None = None
@@ -278,15 +347,15 @@ if uploaded is not None:
     tmp.write_bytes(uploaded.getvalue())
     field_path = tmp
 else:
-    field_path = _base_opts.field_csv
+    field_path = _active_opts.field_csv
 
 clusters = _load_clusters()
 filtered = filter_clusters_by_region(clusters, region)
 summary = compute_regional_summary(clusters, region=region)
 full_summary = compute_regional_summary(clusters)
-alerts = evaluate_watchlist(full_summary, _base_opts.watchlist_rules, lang=lang)
+alerts = evaluate_watchlist(full_summary, _active_opts.watchlist_rules, lang=lang)
 
-opts = _build_report_options(_base_opts, lang=lang, region=region, field_path=field_path)
+opts = _build_report_options(_active_opts, lang=lang, region=region, field_path=field_path)
 
 st.sidebar.markdown("---")
 st.sidebar.subheader(L["export"])
@@ -330,7 +399,7 @@ col_map, col_panel = st.columns([2, 1])
 with col_map:
     st.subheader(f"{L['map']} — {region}")
     if layer == L["layers"][3]:
-        m = _build_cluster_map(filtered, region)
+        m = _build_cluster_map(filtered, region, show_boundaries=show_bounds)
         components.html(m.get_root().render(), height=520, scrolling=False)
     elif layer == L["layers"][0]:
         _show_raster(MAP_PATH, L["wealth_raster"], missing=L["missing_file"])

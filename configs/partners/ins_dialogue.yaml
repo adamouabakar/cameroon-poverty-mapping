@@ -1,0 +1,18 @@
+# Profil dialogue institutionnel INS — Phase 4
+partner_id: ins_dialogue
+display_name: "Dialogue INS Cameroun"
+inherits: configs/ngo_report.yaml
+
+organization:
+  name: "Institut National de la Statistique (INS)"
+  contact_email: "infos@ins-cameroun.cm"
+
+report:
+  default_language: fr
+  focus_region: "Tout le Cameroun"
+  sections:
+    field_validation: false
+    watchlist_alerts: false
+
+watchlist:
+  alerts: []

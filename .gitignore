@@ -61,6 +61,7 @@ data/processed/
 
 # Generated outputs (regenerate via scripts)
 outputs/*
+partner_pack/deliveries/
 !outputs/README.md
 logs/
 

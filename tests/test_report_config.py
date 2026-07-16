@@ -25,3 +25,13 @@ def test_report_options_override():
     opts = ReportOptions(language="en", organization="Test NGO")
     assert opts.language == "en"
     assert opts.organization == "Test NGO"
+
+
+def test_load_merged_partner_config():
+    from src.reports.report_config import load_merged_config
+
+    path = ROOT / "configs/partners/nord_humanitaire.yaml"
+    opts = load_merged_config(path, project_root=ROOT)
+    assert opts.focus_region == "Extrême-Nord"
+    assert opts.sections.get("model_comparison") is False
+    assert len(opts.watchlist_rules) == 2

@@ -1,0 +1,12 @@
+# Profil partenaire générique — Phase 4
+partner_id: generic_ngo
+display_name: "ONG partenaire — vue nationale"
+inherits: configs/ngo_report.yaml
+
+organization:
+  name: "Partenaire ONG Cameroun"
+  contact_email: "partenaire@example.org"
+
+report:
+  default_language: fr
+  focus_region: "Tout le Cameroun"
